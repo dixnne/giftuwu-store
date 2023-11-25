@@ -13,33 +13,35 @@
         <link rel="stylesheet" href="./css/styles.css">
     </head>
     <body id="bootstrap-override" class="bg-color">
-        <section id="header" class="bg-dark">
+        <section id="header" class="bg-color4">
             <header class="p-3">
                 <div class="container">
                     <div class="row d-flex align-items-center justify-content-center justify-content-lg-between">
-                        <div class="d-flex col-12 col-md-3 justify-content-center align-items-center justify-content-lg-start mb-2 mb-lg-0">
+                        <div class="d-flex col-12 col-md-4 justify-content-center align-items-center justify-content-lg-start">
                             <a href="#" role="button" class="btn btn-outline-light mx-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
                                     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                                 </svg>
                             </a>
                         </div>
-                        <a href="#" class="d-flex justify-content-center align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none col-12 col-md-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-gift-fill color3 mx-3" viewBox="0 0 16 16">
-                                <path d="M3 2.5a2.5 2.5 0 0 1 5 0 2.5 2.5 0 0 1 5 0v.006c0 .07 0 .27-.038.494H15a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h2.038A2.968 2.968 0 0 1 3 2.506zm1.068.5H7v-.5a1.5 1.5 0 1 0-3 0c0 .085.002.274.045.43a.522.522 0 0 0 .023.07M9 3h2.932a.56.56 0 0 0 .023-.07c.043-.156.045-.345.045-.43a1.5 1.5 0 0 0-3 0zm6 4v7.5a1.5 1.5 0 0 1-1.5 1.5H9V7zM2.5 16A1.5 1.5 0 0 1 1 14.5V7h6v9z"/>
-                            </svg>
-                            <span class="h1 text-white font-paytone mt-2">Gift uwu Store</span>
+                        <a href="#" class="d-flex justify-content-center align-items-center justify-content-lg-start mb-2 mb-lg-0 link-body-emphasis text-decoration-none col-12 col-md-4">
+                            <span class="h1 text-white font-paytone">Gift uwu Store</span>
                         </a>
-                        <div class="d-flex col-12 col-md-3 justify-content-center align-items-center justify-content-lg-end">
+                        <div class="d-flex col-12 col-md-4 justify-content-center align-items-center justify-content-lg-end">
                             <form class="col-6 mb-3 mb-lg-0 me-lg-3" role="search">
                                 <input type="search" class="form-control" placeholder="Search..." aria-label="Search">
                             </form>
+                            <a href="#" role="button" class="btn btn-outline-light mx-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
+                                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
             </header>
         </section>
-        <section id="navbar" class="bg-color4 pb-2">
+        <section id="navbar" class="bg-color3 pb-2">
             <div class="container">
                 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-2 border-bottom">
                     <div class="col-md-3 mb-2 mb-md-0 d-flex align-items-center">
@@ -56,7 +58,7 @@
                     </div>
                     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0 text-small">
                         <li>
-                            <a href="#" class="nav-link color1">
+                            <a href="#" class="nav-link color4">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-house-fill d-block mx-auto mb-1" viewBox="0 0 16 16">
                                     <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
                                     <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6Z"/>
@@ -106,9 +108,17 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="col-md-3 text-end">
-                        <button type="button" class="btn btn-outline-light me-2">Login</button>
-                        <button type="button" class="btn btn-light">Sign-up</button>
+                    <div class="dropdown text-end">
+                        <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                        </a>
+                        <ul class="dropdown-menu text-small">
+                            <li><a class="dropdown-item" href="#">New project...</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                        </ul>
                     </div>
                 </header>
             </div>

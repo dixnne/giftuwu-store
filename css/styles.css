@@ -3,33 +3,36 @@
 }
 
 #bootstrap-override .bg-color1{
-    background-color: #3D30A2;
+    background-color: #EBE76C;
 }
 
 #bootstrap-override .bg-color2{
-    background-color: #B15EFF;
+    background-color: #F0B86E;
 }
 
 #bootstrap-override .bg-color3{
-    background-color: #FFA33C;
+    background-color: #ED7B7B;
 }
 
 #bootstrap-override .bg-color4{
-    background-color: #FFFB73;
+    background-color: #836096;
 }
 
 #bootstrap-override .color1{
-    color: #3D30A2;
+    color: #EBE76C;
 }
 
 #bootstrap-override .color2{
-    color: #B15EFF;
+    color: #F0B86E;
 }
 
 #bootstrap-override .color3{
-    color: #FFA33C;
+    color: #ED7B7B;
 }
 
 #bootstrap-override .color4{
-    color: #FFFB73;
+    color: #836096;
 }
+
+#bootstrap-override .font-paytone{
+    font-family: 'Bungee', sans-serif;}

@@ -34,6 +34,16 @@ if ($conn->query($query) === FALSE) {
     echo "Error creating table item: " . $conn->error . "<br>";
 }
 
+$query = "CREATE TABLE IF NOT EXISTS category (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    details TEXT
+)";
+
+if ($conn->query($query) === FALSE) {
+    echo "Error creating table item: " . $conn->error . "<br>";
+}
+
 $query = "CREATE TABLE IF NOT EXISTS purchase (
     id INT AUTO_INCREMENT PRIMARY KEY,
     client INT NOT NULL,

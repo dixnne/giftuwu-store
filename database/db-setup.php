@@ -106,7 +106,8 @@ if ($conn->query($query) === FALSE) {
 $query = "CREATE TABLE IF NOT EXISTS store (
     name VARCHAR(255) NOT NULL PRIMARY KEY,
     details TEXT NOT NULL,
-    image VARCHAR(255) NOT NULL
+    image VARCHAR(255) NOT NULL,
+    profits INT
 )";
 
 if ($conn->query($query) === FALSE) {

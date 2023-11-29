@@ -9,7 +9,6 @@ $conn = new mysqli($servername, $username, $password, '', $port);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-echo "Connected successfully.<br>";
 
 $query = "CREATE DATABASE IF NOT EXISTS giftuwustore";
 if ($conn->query($query) === FALSE) {
@@ -107,7 +106,8 @@ if ($conn->query($query) === FALSE) {
 $query = "CREATE TABLE IF NOT EXISTS store (
     name VARCHAR(255) NOT NULL PRIMARY KEY,
     details TEXT NOT NULL,
-    image VARCHAR(255) NOT NULL
+    image VARCHAR(255) NOT NULL,
+    profits INT
 )";
 
 if ($conn->query($query) === FALSE) {

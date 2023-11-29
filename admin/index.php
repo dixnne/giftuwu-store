@@ -1,6 +1,7 @@
 <?php
-
-?>
+    session_start();
+    if (isset($_SESSION["username"]) && isAdmin($_SESSION["username"])) {
+        ?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +17,10 @@
         <link rel="stylesheet" href="../css/styles.css">
     </head>
     <body id="bootstrap-override" class="bg-color">
-        <div class="container">
+        <?php
+            require("../header/header-admin.html");
+        ?>
+        <div class="">
 
         </div>
         </div></div></div></section>
@@ -24,3 +28,9 @@
         <script src="" async defer></script>
     </body>
 </html>
+<?php
+    } else {
+        # code...
+    }
+    
+?>

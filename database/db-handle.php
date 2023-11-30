@@ -432,4 +432,107 @@ function validateUser($user, $pswd){
     $conn->close();
     return false;
 }
+
+function updtatePassword($user, $pswd){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $query = "UPDATE user SET password='$pswd' WHERE username='$user'";
+    if ($conn->query($query) === FALSE) {
+        return false;
+    }
+    $conn->close();
+
+    return true;
+}
+
+function denyUser($user){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $blocked = 1;
+    $query = "UPDATE user SET blocked='$blocked' WHERE username='$user'";
+    if ($conn->query($query) === FALSE) {
+        return false;
+    }
+    $conn->close();
+
+    return true;
+}
+
+function allowUser($user){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $blocked = 0;
+    $query = "UPDATE user SET blocked='$blocked' WHERE username='$user'";
+    if ($conn->query($query) === FALSE) {
+        return false;
+    }
+    $conn->close();
+
+    return true;
+}
+
+function isAllowed($user){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $query = "SELECT * FROM user WHERE username='$user'";
+    $result = $conn->query($query);
+    if ($result->num_rows > 0){
+        while ($row = $result->fetch_assoc()) {
+            if ($row["blocked"] == 1) {
+                $conn->close();
+                return false;
+            } else {
+                $conn->close();
+                return true;
+            }
+        }
+    }else {
+        $conn->close();
+        return false;
+    }
+}
 ?>

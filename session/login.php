@@ -39,7 +39,7 @@ if (!isset($_SESSION["attempts"])) {
             if (validateUser($username, $password)) {
                 $_SESSION["attempts"] = "";
                 $_SESSION["username"] = $username;
-                $row = getClient($username);
+                $row = getUser($username);
                 $_SESSION["image"] = $row["image"];
                 echo '<script>
                 swal("Bienvenido a Gift uwu Store!", "Sesión iniciada con éxito", "success").then(function() {

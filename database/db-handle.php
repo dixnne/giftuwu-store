@@ -355,6 +355,30 @@ function getClient($key){
     return $row;
 }
 
+function getUser($key){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $query = "SELECT * FROM user WHERE username='$key'";
+    $result = $conn->query($query);
+    $row = "";
+    if ($result->num_rows > 0){
+        $row = $result->fetch_assoc();
+    }
+    $conn->close();
+    return $row;
+}
+
 function isAdmin($user){
     $username = "root"; 
     $password = "ch1d0N83"; 

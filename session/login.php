@@ -39,6 +39,8 @@ if (!isset($_SESSION["attempts"])) {
             if (validateUser($username, $password)) {
                 $_SESSION["attempts"] = "";
                 $_SESSION["username"] = $username;
+                $row = getClient($username);
+                $_SESSION["image"] = $row["image"];
                 echo '<script>
                 swal("Bienvenido a Gift uwu Store!", "Sesión iniciada con éxito", "success").then(function() {
                     window.location = "../index.php";
@@ -48,6 +50,7 @@ if (!isset($_SESSION["attempts"])) {
                 if ($_SESSION["attempts"] >= 3) {
                     $_SESSION["attempts"] = "";
                     $_SESSION["userdenied"] = $username;
+                    denyUser($username);
                     echo '<script>
                     swal("Acceso Denegado", "Excediste los 3 intentos permitidos y tu cuenta se ha bloqueado.", "error").then(function() {
                         window.location = "./access-denied.php";

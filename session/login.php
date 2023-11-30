@@ -50,12 +50,13 @@ if (!isset($_SESSION["attempts"])) {
                 if ($_SESSION["attempts"] >= 3) {
                     $_SESSION["attempts"] = "";
                     $_SESSION["userdenied"] = $username;
-                    denyUser($username);
-                    echo '<script>
-                    swal("Acceso Denegado", "Excediste los 3 intentos permitidos y tu cuenta se ha bloqueado.", "error").then(function() {
-                        window.location = "./access-denied.php";
-                    });
-                    </script>';
+                    if (denyUser($username)) {
+                        echo '<script>
+                        swal("Acceso Denegado", "Excediste los 3 intentos permitidos y tu cuenta se ha bloqueado.", "error").then(function() {
+                            window.location = "./access-denied.php";
+                        });
+                        </script>';
+                    }
                 } else {
                     echo '<script>
                     swal("Datos Incorrectos", "Inténtalo nuevamente...", "warning");

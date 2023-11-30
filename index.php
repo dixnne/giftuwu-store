@@ -1,25 +1,27 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
+        <title>Gift uwu Store</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" href="./css/styles.css">
     </head>
     <body id="bootstrap-override" class="bg-color">
         <?php
-        session_start();
-        if (isset($_SESSION["username"])) {
-            include("./header-login.php");
-        }else{
-            include("./header.html");
-        }
+            if (isset($_SESSION["username"])) {
+                include("./header/header-login.php");
+            }else{
+                include("./header/header.html");
+            }
         ?>
         <?php
         include("./footer/footer.html");

@@ -75,7 +75,9 @@ $query = "CREATE TABLE IF NOT EXISTS user (
     username VARCHAR(255) NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    image VARCHAR(255) NOT NULL,
+    blocked TINYINT
 )";
 
 if ($conn->query($query) === FALSE) {
@@ -87,7 +89,8 @@ $query = "CREATE TABLE IF NOT EXISTS client (
     username VARCHAR(255) NOT NULL,
     question VARCHAR(255) NOT NULL,
     answer VARCHAR(255) NOT NULL,
-    currentPurchase INT
+    currentPurchase INT,
+    bday DATE
 )";
 
 if ($conn->query($query) === FALSE) {

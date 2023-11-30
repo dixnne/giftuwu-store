@@ -432,4 +432,27 @@ function validateUser($user, $pswd){
     $conn->close();
     return false;
 }
+
+function updtatePassword($user, $pswd){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $query = "UPDATE user SET password='$pswd' WHERE username='$user'";
+    if ($conn->query($query) === FALSE) {
+        return false;
+    }
+    $conn->close();
+
+    return true;
+}
 ?>

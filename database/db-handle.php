@@ -331,7 +331,7 @@ function generatePurchase($client, $purchaseDate){
     $conn->close();
 }
 
-function getRow($table, $keyname, $key){
+function getClient($key){
     $username = "root"; 
     $password = "ch1d0N83"; 
     $dbname = "giftuwustore";
@@ -345,7 +345,7 @@ function getRow($table, $keyname, $key){
 
     $conn->select_db($dbname);
 
-    $query = "SELECT * FROM '$table' WHERE '$keyname'='$key'";
+    $query = "SELECT * FROM client WHERE username='$key'";
     $result = $conn->query($query);
     $row = "";
     if ($result->num_rows > 0){

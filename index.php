@@ -17,7 +17,6 @@
     </head>
     <body id="bootstrap-override" class="bg-color">
         <?php
-        session_start();
             if (isset($_SESSION["username"])) {
                 include("./header/header-login.php");
             }else{

@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION["attempts"])) {
+    $_SESSION["attempts"] = 0;
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -23,45 +29,35 @@
             require("../database/db-setup.php");
             require("../database/db-handle.php");
 
-            $name = $email = $username = $password = $image = $bday = $question = $answer = "";
-            $currentPurchase = 1;
-            $name = test_input($_POST["name"]);
-            $email = test_input($_POST["email"]);
+            $username = $password = "";
             $username = test_input($_POST["username"]);
             $password = test_input($_POST["password"]);
-            $bday = test_input($_POST["bday"]);
-            $question = test_input($_POST["question"]);
-            $answer = test_input($_POST["answer"]);
-
-            $hash = password_hash($password, PASSWORD_BCRYPT);
-
-            $image = $_FILES['image'];
-            $imagename = $_FILES['image']['name'];
-            $imagetype = $_FILES['image']['type'];
-            $imageerror = $_FILES['image']['error'];
-            $imagetemp = $_FILES['image']['tmp_name'];
-            $imagePath = "../images/uploads/";
-            move_uploaded_file($_FILES["image"]["tmp_name"], $imagePath.$imagename) or die("No se pudo subir el archivo.");
-            $image = $imagePath.$imagename;
+            $_SESSION["attempts"]++;
         }
 
         if (isset($_POST["submit"])){
-            if (!isUser($username)) {
-                if (insertClient($username, $name, $email, $hash, $question, $answer, $image, $bday, $currentPurchase)) {
+            if (validateUser($username, $password)) {
+                $_SESSION["attempts"] = "";
+                $_SESSION["username"] = $username;
+                echo '<script>
+                swal("Bienvenido a Gift uwu Store!", "Sesión iniciada con éxito", "success").then(function() {
+                    window.location = "../index.php";
+                });
+                </script>';
+            } else {
+                if ($_SESSION["attempts"] >= 3) {
+                    $_SESSION["attempts"] = "";
+                    $_SESSION["userdenied"] = $username;
                     echo '<script>
-                    swal("Bienvenido a Gift uwu Store!", "Se creó la cuenta exitosamente.", "success").then(function() {
-                        window.location = "./login.php";
+                    swal("Acceso Denegado", "Excediste los 3 intentos permitidos y tu cuenta se ha bloqueado.", "error").then(function() {
+                        window.location = "./access-denied.php";
                     });
                     </script>';
                 } else {
                     echo '<script>
-                    swal("Ups!", "Hubo un problema al crear tu cuenta, inténtalo de nuevo.", "error");
+                    swal("Datos Incorrectos", "Inténtalo nuevamente...", "warning");
                     </script>';
-                    }
-            } else {
-                echo '<script>
-                swal("Lo sentimos...", "Ese usuario ya está en uso.", "warning");
-                </script>';
+                }
             }
         }
         ?>
@@ -69,96 +65,34 @@
             <h1 class="text-center font-paytone mt-5">Identifícate!</h1>
             <div class="container col-12 col-md-6 p-5 bg-color3 mb-5 rounded-5 shadow">
                 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" class="row needs-validation" enctype="multipart/form-data" novalidate>
-                    <div class="col-12 bg-color1 rounded p-3 mt-2">
-                        <div class="row">
-                            <div class="col-12 p-2">
-                                <label for="inputUser" class="form-label">Nombre de Usuario</label>
-                                <input type="text" name="username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>" id="inputUser" class="form-control" aria-describedby="userHelpBlock" required>
-                                <div id="userHelpBlock" class="form-text">
-                                    Intenta escoger un usuario único y especial como tú!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Tenemos que identificarte con algo...
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 p-2">
-                                <label for="inputPassword" class="form-label">Contraseña</label>
-                                <input type="password" name="password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>" id="inputPassword" class="form-control" aria-describedby="passwordHelpBlock" required>
-                                <div id="passwordHelpBlock" class="form-text">
-                                    Tu contraseña debe de tener de 8 a 20 caracteres.
-                                </div>
-                                <div class="invalid-feedback">
-                                    Tienes que ingresar una contraseña.
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 p-2">
-                                <label for="inputConfirmPassword" class="form-label">Confirmar Contraseña</label>
-                                <input type="password" name="confirm-password" value="<?php echo isset($_POST['confirm-password']) ? $_POST['confirm-password'] : '' ?>" id="inputConfirmPassword" class="form-control" aria-describedby="confirmpasswordHelpBlock" required>
-                                <div id="confirmpasswordHelpBlock" class="form-text">
-                                    Repite tu contraseña para validarla!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Tienes escribir de nuevo la contraseña.
-                                </div>
-                            </div>
-                            <p id="message" class="text-center"></p>
+                    <div class="col-12 col-md-6 p-2">
+                        <label for="inputUser" class="form-label">Nombre de Usuario</label>
+                        <input type="text" name="username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>" id="inputUser" class="form-control" aria-describedby="userHelpBlock" required>
+                        <div id="userHelpBlock" class="form-text">
+                            Ingresa el nombre de usuario de tu cuenta.
+                        </div>
+                        <div class="invalid-feedback">
+                            Tenemos que identificarte con algo...
                         </div>
                     </div>
                     <div class="col-12 col-md-6 p-2">
-                        <label for="formFile" class="form-label text-white">Foto</label>
-                        <input class="form-control" name="image" type="file" id="formFile" aria-describedby="fileHelpBlock" required>
-                        <div id="fileHelpBlock" class="form-text text-white">
-                            Se recomienda elegir una foto en la que se vea tu rostro por motivos de identidad.
+                        <label for="inputPassword" class="form-label">Contraseña</label>
+                        <input type="password" name="password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>" id="inputPassword" class="form-control" aria-describedby="passwordHelpBlock" required>
+                        <div id="passwordHelpBlock" class="form-text">
+                            Tienes 3 intentos para iniciar sesión!
                         </div>
                         <div class="invalid-feedback">
-                            Ingresa una fotografía.
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 p-2">
-                        <label for="inputBday" class="form-label text-white">Fecha de Nacimiento</label>
-                        <input class="form-control" name="bday" value="<?php echo isset($_POST['bday']) ? $_POST['bday'] : '' ?>" type="date" id="inputBday" aria-describedby=" bdayHelpBlock" required>
-                        <div id="bdayHelpBlock" class="form-text text-white">
-                            ¿Quién sabe? Quizá recibas algo de cumpleaños...
-                        </div>
-                        <div class="invalid-feedback">
-                            ¿Cuándo cumples años? Necesito preparar tu regalo.
-                        </div>
-                    </div>
-                    <div class="col-12 bg-color2 rounded p-3 my-2">
-                        <div class="row">
-                            <div class="col-12 col-md-6 p-2">
-                                <label for="inputQuestion" class="form-label">Pregunta de Seguridad</label>
-                                <input type="text" name="question" value="<?php echo isset($_POST['question']) ? $_POST['question'] : '' ?>" id="inputQuestion" class="form-control" aria-describedby="userHelpBlock" required>
-                                <div id="userHelpBlock" class="form-text">
-                                    Pregunta algo que solo sepas tú.
-                                </div>
-                                <div class="invalid-feedback">
-                                    Quiero saber más de tí!
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 p-2">
-                                <label for="inputAnswer" class="form-label">Respuesta</label>
-                                <input type="text" name="answer" value="<?php echo isset($_POST['answer']) ? $_POST['answer'] : '' ?>" id="inputAnswer" class="form-control" aria-describedby="passwordHelpBlock" required>
-                                <div id="passwordHelpBlock" class="form-text">
-                                    Será nuestro secreto!
-                                </div>
-                                <div class="invalid-feedback">
-                                    Confía en mí, no le diré a nadie.
-                                </div>
-                            </div>
+                            Tienes que ingresar una contraseña.
                         </div>
                     </div>
                     <div class="form-check col-12 py-2 px-5">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                        <input class="form-check-input" name="remember-me" type="checkbox" value="" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
-                            Estoy de acuerdo con los términos y condiciones de Gift uwu Store.
+                            Recordar datos de inicio de sesión en este dispositivo.
                         </label>
-                        <div class="invalid-feedback">
-                            Debes de estar de acuerdo para crear tu cuenta...
-                        </div>
                     </div>
                     <div class="col-12 text-center">
-                        <button type="submit" name="submit" class="btn btn-dark w-100">Continuar</button>
+                        <button type="submit" name="submit" class="btn btn-dark w-100">Iniciar sesión</button>
                     </div>
                 </form>
             </div>

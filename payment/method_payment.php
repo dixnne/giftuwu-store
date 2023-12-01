@@ -63,13 +63,13 @@
                             <h2 class="font-paytone">Como deseas pagar?</h2>
                             <hr class="grow">
                             <div class="pay-card">
-                                <input type="radio" id="visa" name="metodo_pago" value="" maxlength="18">
+                                <input type="radio" id="visa" name="metodo_pago" value="">
                                 <i class="fa-brands fa-cc-visa fa-xl"></i>
                                 <label for="visa">VISA</label>
                             </div>
                             <br>
                             <div class="pay-card">
-                                <input type="radio" id="mastercard" name="metodo_pago" value="" maxlength="16">
+                                <input type="radio" id="mastercard" name="metodo_pago" value="">
                                 <i class="fa-brands fa-cc-mastercard fa-xl"></i>
                                 <label for="mastercard">MASTERCARD</label>
                             </div>

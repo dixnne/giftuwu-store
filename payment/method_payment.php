@@ -93,7 +93,7 @@
                             <i class="fa-solid fa-money-check-dollar fa-xl" style="color: #1bb11d;"></i><br>
                             <label>Por favor deposita a este numero de cuenta</label>
                             <?php
-                                $cuenta = mt_rand(400000000000000, 999999999999999);
+                                $cuenta = mt_rand(400000000000000000, 999999999999999999);
                                 echo "No. de cuenta: $cuenta";
                             ?>
                             </div>

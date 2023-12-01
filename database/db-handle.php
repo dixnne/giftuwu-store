@@ -204,9 +204,10 @@ function deleteItem($id){
 
     $query = "DELETE FROM item WHERE id='$id'";
     if ($conn->query($query) === FALSE) {
-        echo "Error deleting data: " . $conn->error . "<br>";
+        return false;
     }
     $conn->close();
+    return true;
 }
 
 function modifyItem($id, $name, $code, $category, $price, $stock, $discount, $details, $image){
@@ -225,9 +226,10 @@ function modifyItem($id, $name, $code, $category, $price, $stock, $discount, $de
 
     $query = "UPDATE item SET name='$name', code='$code', category='$category', price='$price', stock='$stock', discount='$discount', details='$details', image='$image' WHERE id='$id'";
     if ($conn->query($query) === FALSE) {
-        echo "Error deleting data: " . $conn->error . "<br>";
+        return false;
     }
     $conn->close();
+    return true;
 }
 
 function insertCoupon($name, $code, $details, $discount, $image, $general, $item){
@@ -246,9 +248,10 @@ function insertCoupon($name, $code, $details, $discount, $image, $general, $item
 
     $query = "INSERT INTO coupon (name, code, details, discount, image, general, item) VALUES ('$name', '$code', '$details', '$discount', '$image', '$general', '$item')";
     if ($conn->query($query) === FALSE) {
-        echo "Error inserting data: " . $conn->error . "<br>";
+        return false;
     }
     $conn->close();
+    return true;
 }
 
 function deleteCoupon($id){
@@ -557,6 +560,31 @@ function isAllowed($user){
     }else {
         $conn->close();
         return false;
+    }
+}
+
+function getItemsCount(){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $query = "SELECT COUNT(*) FROM item";
+    $result = $conn->query($query);
+    if ($result->num_rows > 0){
+        while ($row = $result->fetch_assoc()) {
+            return $row["COUNT()"];
+        }
+    }else {
+        return 0;
     }
 }
 ?>

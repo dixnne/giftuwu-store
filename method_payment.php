@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="css/styles.css">
     <style>
     </style>
-    
     <title>Metodo de pago</title>
 </head>
 <body>

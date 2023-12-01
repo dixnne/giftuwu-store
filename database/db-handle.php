@@ -204,9 +204,10 @@ function deleteItem($id){
 
     $query = "DELETE FROM item WHERE id='$id'";
     if ($conn->query($query) === FALSE) {
-        echo "Error deleting data: " . $conn->error . "<br>";
+        return false;
     }
     $conn->close();
+    return true;
 }
 
 function modifyItem($id, $name, $code, $category, $price, $stock, $discount, $details, $image){
@@ -247,9 +248,10 @@ function insertCoupon($name, $code, $details, $discount, $image, $general, $item
 
     $query = "INSERT INTO coupon (name, code, details, discount, image, general, item) VALUES ('$name', '$code', '$details', '$discount', '$image', '$general', '$item')";
     if ($conn->query($query) === FALSE) {
-        echo "Error inserting data: " . $conn->error . "<br>";
+        return false;
     }
     $conn->close();
+    return true;
 }
 
 function deleteCoupon($id){

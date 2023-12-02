@@ -74,7 +74,7 @@
             $conn->select_db($dbname);
             $query = "SELECT * FROM item";
             $result = $conn->query($query);
-            $id = $result->num_rows + 1;
+            $id = $result->num_rows + 3;
         ?>
         <div class="container mt-3 d-flex flex-column align-items-center px-5">
             <span class="font-paytone text-center color3 h3">Añadir producto</span>

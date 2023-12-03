@@ -40,8 +40,10 @@ function insertUser($user, $name, $email, $pswd, $image){
 
     $conn->select_db($dbname);
 
-    $query = "INSERT INTO user (username, name, email, password, image) VALUES ('$user', '$name','$email', '$pswd', '$image')";
+    $blocked = 0;
+    $query = "INSERT INTO user (username, name, email, password, image, blocked) VALUES ('$user', '$name','$email', '$pswd', '$image', '$blocked')";
     if ($conn->query($query) === FALSE) {
+        echo "Error inserting user data: " . $conn->error . "<br>";
         return false;
     }
     $conn->close();
@@ -106,6 +108,7 @@ function insertClient($user, $name, $email, $pswd, $question, $answer, $image, $
 
     $query = "INSERT INTO client (username, question, answer, currentPurchase, bday) VALUES ('$user', '$question','$answer', '$currentPurchase', '$bday')";
     if ($conn->query($query) === FALSE) {
+        echo "Error inserting client data: " . $conn->error . "<br>";
         return false;
     }
     $conn->close();
@@ -586,5 +589,119 @@ function getItemsCount(){
     }else {
         return 0;
     }
+}
+
+function insertFeatured($id, $item){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $query = "INSERT INTO featured (id, item) VALUES ('$id', '$item')";
+    if ($conn->query($query) === FALSE) {
+        return false;
+    }
+    $conn->close();
+    return true;
+}
+
+function deleteFeatured($id){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $query = "DELETE FROM featured WHERE id='$id'";
+    if ($conn->query($query) === FALSE) {
+        return false;
+    }
+    $conn->close();
+    return true;
+}
+
+function setFeatured($id, $item){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $query = "UPDATE featured SET item='$item' WHERE id='$id'";
+    if ($conn->query($query) === FALSE) {
+        return false;
+    }
+    $conn->close();
+    return true;
+}
+
+function getFeatured($id){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $query = "SELECT * FROM featured WHERE id='$id'";
+    $result = $conn->query($query);
+    $row = "";
+    if ($result->num_rows > 0){
+        $row = $result->fetch_assoc();
+    }
+    $conn->close();
+    return $row;
+}
+
+function getItem($id){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $query = "SELECT * FROM item WHERE id='$id'";
+    $result = $conn->query($query);
+    $row = "";
+    if ($result->num_rows > 0){
+        $row = $result->fetch_assoc();
+    }
+    $conn->close();
+    return $row;
 }
 ?>

@@ -16,6 +16,8 @@
                         <img src="<?php echo $_SESSION["image"]; ?>" alt="mdo" width="32" height="32" class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu text-small">
+                        <li><a class="dropdown-item" href="#"><?php echo $_SESSION["username"] ?></a></li>
+                        <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="../session/signout.php">Cerrar Sesión</a></li>
                     </ul>
                 </div>

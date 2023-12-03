@@ -126,5 +126,14 @@ if ($result->num_rows == 0) {
     }
 }
 
+$query = "CREATE TABLE IF NOT EXISTS featured (
+    id INT NOT NULL PRIMARY KEY,
+    item INT
+)";
+
+if ($conn->query($query) === FALSE) {
+    echo "Error creating table store: " . $conn->error . "<br>";
+}
+
 $conn->close();
 ?>

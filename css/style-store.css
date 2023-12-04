@@ -1,0 +1,23 @@
+#bodyproducts .form {
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+}
+.btn_left{
+    text-align: left;
+}
+.btnb{
+    color: black;
+}
+
+.imgzoom:hover .zoom {
+    -webkit-transform:scale(1.3);transform:scale(1.3);
+}
+.imgzoom {
+    overflow:hidden;
+}
+
+/* esto es para la imagen de prueba */
+.img1{
+    width: 300px;
+}

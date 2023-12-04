@@ -1,4 +1,13 @@
 <?php
+if (isset($_POST["submit"])){
+    if (isset($_POST["remember-me"])) {
+        setcookie("username", $_POST["username"], time() + 3600);
+        setcookie("password", $_POST["password"], time() + 3600);
+    } else {
+        setcookie("username", "");
+        setcookie("password", "");
+    }
+}
 session_start();
 if (!isset($_SESSION["attempts"])) {
     $_SESSION["attempts"] = 0;
@@ -19,6 +28,7 @@ if (!isset($_SESSION["attempts"])) {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link rel="stylesheet" href="../css/styles.css">
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     </head>
     <body id="bootstrap-override" class="bg-color">
         <?php
@@ -36,31 +46,47 @@ if (!isset($_SESSION["attempts"])) {
         }
 
         if (isset($_POST["submit"])){
-            if (validateUser($username, $password)) {
+
+            if (!isAllowed($username)) {
                 $_SESSION["attempts"] = "";
-                $_SESSION["username"] = $username;
-                $row = getUser($username);
-                $_SESSION["image"] = $row["image"];
+                $_SESSION["userdenied"] = $username;
                 echo '<script>
-                swal("Bienvenido a Gift uwu Store!", "Sesión iniciada con éxito", "success").then(function() {
-                    window.location = "../index.php";
+                swal("Acceso Denegado", "Excediste los 3 intentos permitidos y tu cuenta se ha bloqueado.", "error").then(function() {
+                    window.location = "./access-denied.php";
                 });
                 </script>';
             } else {
-                if ($_SESSION["attempts"] >= 3) {
+                require_once 'recaptcha-master/src/autoload.php';
+                $secret = "6LcIJiYpAAAAAMBITTbep3vjNx0Cgmdi2HHHfXNH"; 
+                $recaptcha = new \ReCaptcha\ReCaptcha($secret);
+                $resp = $recaptcha->setExpectedHostname('losnarvaez.com')
+                  ->verify($_POST["g-recaptcha-response"], $_SERVER["REMOTE_ADDR"]);
+                if (validateUser($username, $password) && $resp->isSuccess()) {
                     $_SESSION["attempts"] = "";
-                    $_SESSION["userdenied"] = $username;
-                    if (denyUser($username)) {
+                    $_SESSION["username"] = $username;
+                    $row = getUser($username);
+                    $_SESSION["image"] = $row["image"];
+                    echo '<script>
+                    swal("Bienvenido a Gift uwu Store!", "Sesión iniciada con éxito", "success").then(function() {
+                        window.location = "../index.php";
+                    });
+                    </script>';
+                } else {
+                    if ($_SESSION["attempts"] >= 3) {
+                        $_SESSION["attempts"] = "";
+                        $_SESSION["userdenied"] = $username;
+                        if (denyUser($username)) {
+                            echo '<script>
+                            swal("Acceso Denegado", "Excediste los 3 intentos permitidos y tu cuenta se ha bloqueado.", "error").then(function() {
+                                window.location = "./access-denied.php";
+                            });
+                            </script>';
+                        }
+                    } else {
                         echo '<script>
-                        swal("Acceso Denegado", "Excediste los 3 intentos permitidos y tu cuenta se ha bloqueado.", "error").then(function() {
-                            window.location = "./access-denied.php";
-                        });
+                        swal("Datos Incorrectos", "Inténtalo nuevamente...", "warning");
                         </script>';
                     }
-                } else {
-                    echo '<script>
-                    swal("Datos Incorrectos", "Inténtalo nuevamente...", "warning");
-                    </script>';
                 }
             }
         }
@@ -71,7 +97,7 @@ if (!isset($_SESSION["attempts"])) {
                 <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post" class="row needs-validation" enctype="multipart/form-data" novalidate>
                     <div class="col-12 col-md-6 p-2">
                         <label for="inputUser" class="form-label">Nombre de Usuario</label>
-                        <input type="text" name="username" value="<?php echo isset($_POST['username']) ? $_POST['username'] : '' ?>" id="inputUser" class="form-control" aria-describedby="userHelpBlock" required>
+                        <input type="text" name="username" value="<?php if (isset($_COOKIE["username"])) { echo $_COOKIE["username"]; } else echo isset($_POST['username']) ? $_POST['username'] : ''  ?>" id="inputUser" class="form-control" aria-describedby="userHelpBlock" required>
                         <div id="userHelpBlock" class="form-text">
                             Ingresa el nombre de usuario de tu cuenta.
                         </div>
@@ -81,7 +107,7 @@ if (!isset($_SESSION["attempts"])) {
                     </div>
                     <div class="col-12 col-md-6 p-2">
                         <label for="inputPassword" class="form-label">Contraseña</label>
-                        <input type="password" name="password" value="<?php echo isset($_POST['password']) ? $_POST['password'] : '' ?>" id="inputPassword" class="form-control" aria-describedby="passwordHelpBlock" required>
+                        <input type="password" name="password" value="<?php if (isset($_COOKIE["password"])) { echo $_COOKIE["password"]; } else echo isset($_POST['password']) ? $_POST['password'] : '' ?>" id="inputPassword" class="form-control" aria-describedby="passwordHelpBlock" required>
                         <div id="passwordHelpBlock" class="form-text">
                             Tienes 3 intentos para iniciar sesión!
                         </div>
@@ -89,8 +115,11 @@ if (!isset($_SESSION["attempts"])) {
                             Tienes que ingresar una contraseña.
                         </div>
                     </div>
+                    <div class="col-12 p-2 text-center">
+                        <div class="g-recaptcha" data-sitekey="6LcIJiYpAAAAAFmDEc8qa51w1pIo9yejB0_Li--e"></div>
+                    </div>
                     <div class="form-check col-12 py-2 px-5">
-                        <input class="form-check-input" name="remember-me" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" name="remember-me" type="checkbox" value="cookies" id="flexCheckDefault">
                         <label class="form-check-label" for="flexCheckDefault">
                             Recordar datos de inicio de sesión en este dispositivo.
                         </label>

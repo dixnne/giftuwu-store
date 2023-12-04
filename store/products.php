@@ -1,23 +1,6 @@
 <?php
     session_start();
 
-    $category = 0;
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Acceder al valor enviado mediante POST
-        if (isset($_POST['nueva_variable'])) {
-            $nuevo_valor = $_POST['nueva_variable'];
-    
-            // Procesar el valor recibido (por ejemplo, actualizar la variable)
-            // En este ejemplo, simplemente devolvemos el valor recibido como respuesta
-            echo $nuevo_valor;
-            $category = $nuevo_valor;
-        } else {
-            echo "No se recibió ningún valor";
-        }
-    } else {
-        echo "No se recibió una solicitud POST";
-    }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,56 +27,30 @@
             }
         ?>
         <?php
-             $servidor='localhost';
-             $cuenta='root';
-             $password='';
-             $bd='girtuwustore';
-             
-             //conexion a la base de datos
-             $conexion = new mysqli($servidor,$cuenta,$password,$bd);
-             if ($conexion->connect_errno){
-                die('Error en la conexion');
-            }else{
-                if($category != 0){
-                    switch ($opcion) {
-                        case 1:                   
-                            $sql = 'select * from item where category = 1';
-                            break;
-                        case 2:
-                            $sql = 'select * from item where category = 2';
-                            break;
-                        case 3:
-                            $sql = 'select * from item where category = 3';
-                            break;
-                        case 4:
-                            $sql = 'select * from item where category = 4';
-                        break; 
-                        case 5:
-                            $sql = 'select * from item where category = 5';
-                            break;
-                        case 6:
-                            $sql = 'select * from item where category = 6';
-                            break;   
-                        default:
-                            break;
-                    }
-                }else{
-                    $sql = 'select * from item';
-                }
-                $resultado = $conexion -> query($sql);
+             $username = "root"; 
+             $password = "ch1d0N83"; 
+             $dbname = "giftuwustore";
+             $servername = "mysql_db_php_2"; //docker-compose.yml database name
+             $port = 3306;  
+             $conn = new mysqli($servername, $username, $password, '', $port);
+         
+             if ($conn->connect_error) {
+                 die("Connection failed: " . $conn->connect_error);
+             }else{
+                $conn->select_db($dbname);
+                $query = 'SELECT * FROM  item';
+                $resultado = $conexion -> query($query);
                  if ($resultado -> num_rows){ 
-                     $bangroup=0;
-                     echo '<div id="bodyproducts" class="container bg-color4 ">';
+                    
+                    echo '<br>';
+                     echo '<div id="bodyproducts" class="form container bg-color4 row row-cols-2 row-cols-md-3 g-4">';
+                     
                      echo '<br>';
                      
-                     while( $fila = $resultado -> fetch_assoc()){ 
-                        
-                         if($bangroup== 0 || $bangroup % 4 == 0){
-                             echo '<div class="card-group col contenedor-flex">';
-                         }
+                     while( $fila = $resultado -> fetch_assoc()){                         
+                        echo '<div class="col">';
                             $pricefinal= $fila['price'] - ($fila['price'] * ($fila['discount']/100));
-                            
-                             echo '<div class="card space bg-color">';
+                            echo '<div id="id_'.$fila['id'].'" class="card bg-color">';
                                  echo '<img src='. $fila['image'] .' class="card-img-top" alt="..."">';
                                  echo '<div class="card-body">';
                                      echo '<h5 class="card-title">'. $fila['name'] .'</h5>';
@@ -105,19 +62,25 @@
                                      </p>';
                                  echo '</div>'; 
                                  echo '<div class="card-footer bg-color2">';
-                                     echo '<small class="text-body-secondary">codigo:'. $fila['code'] .'</small>';
+                                    echo '<div class="row row-cols-2">';
+                                        echo'<div>';
+                                            echo '<small class="text-body-secondary">codigo:'. $fila['code'] .'</small>';
+                                        echo'</div>';
+                                        echo'<div class="btn_left">';  
+                                            echo '<a href="#"><button type="button" class="btn btn-outline-light btnb">Add</button></a>';
+                                        echo'</div>';
+                                    echo '</div>';
                                  echo '</div>';   
                              echo '</div>';
-                             
-                         if($bangroup % 4 == 3 || $resultado -> num_rows== $bangroup +1){
-                             echo '</div>';
-                             echo '<br>';
-                         }
-                         $bangroup+=1;
+                        echo '</div>';                
                      }
+                     echo '<br>';
+                     echo '<br>';
                      echo '</div>';
+                    
                  }
-            }       
+            }  
+            $conn->close();     
         ?>
         
         <?php

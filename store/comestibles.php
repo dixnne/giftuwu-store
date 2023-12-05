@@ -27,9 +27,7 @@
                 include("../header/header.html");
             }
         ?>
-        <section id="bodyproducts" class="gradient-background-purple py-5">
-            <div class="container">
-                <div class="row g-4">
+        
         <?php
             $username = "root"; 
             $password = "ch1d0N83"; 
@@ -44,7 +42,25 @@
 
             $conn->select_db($dbname);
 
-            $query = "SELECT * FROM item";
+            $query = "SELECT * FROM category WHERE id='1'";
+            $result = $conn->query($query);
+            ?>
+            <section id="bodyproducts" class="gradient-background-purple py-5">
+            <?php 
+            
+            if ($result->num_rows > 0){
+                while ($row = $result->fetch_assoc()) {
+                    echo '<h1 class="text-center font-paytone">'.$row["name"].'</h1>
+                    <p class="lead text-center mb-3">'.$row["details"].'</p>';
+                }
+            }
+                     
+            ?>
+            <div class="container">
+            <div class="row g-4">
+            <?php
+        
+            $query = "SELECT * FROM item WHERE category='1'";
             $result = $conn->query($query);
             if ($result->num_rows > 0){
                 while ($row = $result->fetch_assoc()) {

@@ -15,7 +15,27 @@
 </head>
 <body id="bootstrap-override" class="bg-color">
     <div class="container">
-        
+       <div class="contenedor-central contenedor-flex row">
+        <div class="contenedor-padre">
+            <div class="contenedor-hijo contenedor-flex row">
+                <header class="bg-black text-light text-center font-paytone display-1">gracias por tu compra</header>
+                <div class="space bg-success shadow p-5 text-light">
+                    <h1 class="text-center">
+                        Tu compra ha llegado a su destino, ¡Que la disfrutes!
+                    </h1>
+                </div>
+                <div class="shadow p-5 bg-body-tertiary fs-4">
+                    <p>Hicimos entrega en //direccion</p>
+                    <p>Recibió: //nombre</p>
+                    <p>Relación con el titular: Familiar o amigo/a</p>
+                    <hr>
+                    <p>Devolver siempre es gratis, si el producto que recibiste no te agradó cuentas con <strong>30 dias para realizar la devolución.</strong></p><br>
+                    <p class="font-paytone text-center">¡gracias por tu preferencia! uwu</p>
+                    <p class="fw-light fst-italic fs-6 text-start">Atte: El equipo de <strong>GIFT UWU STORE</strong></p>
+                </div>
+            </div>
+        </div>
+       </div>
     </div>
 </body>
 </html>

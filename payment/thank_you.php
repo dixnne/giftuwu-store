@@ -19,7 +19,7 @@
         <div class="contenedor-padre">
             <div class="contenedor-hijo contenedor-flex row">
                 <header class="bg-black text-light text-center font-paytone display-1">gracias por tu compra</header>
-                <div class="space bg-success shadow p-5 text-light">
+                <div class="space bg-color4 shadow p-5 text-light">
                     <h1 class="text-center">
                         Tu compra ha llegado a su destino, ¡Que la disfrutes!
                     </h1>

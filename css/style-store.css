@@ -18,3 +18,12 @@
 .img1{
     width: 300px;
 }
+
+.img-container:hover .img-effect {
+    -webkit-transform:scale(1.3);
+    transform:scale(1.3);
+}
+
+.img-container {
+    overflow:hidden;
+}

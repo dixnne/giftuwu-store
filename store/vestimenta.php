@@ -9,6 +9,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Gift uwu Store</title>
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -73,10 +74,18 @@
                     $code = $row["code"];
                     $details = $row["details"];
                     $image = $row["image"];
+                    if ($stock == 0) {
+                        $stock = "Producto agotado";
+                    } else {
+                        $stock = "Disponibles: ".$stock;
+                    }
                     echo '<div class="col-12 col-sm-6 col-md-4 col-lg-3">';
                             $endprice= $price - ($price * $discount/100);
-                            echo '<div id="id_'.$id.'" class="card bg-color">';
-                                 echo '<img src="'.$image.'" class="card-img-top" alt="..."">';
+                            if ($discount > 0) {
+                                $price = '<span class="text-decoration-line-through">'.$price.'</span>';
+                            }
+                            echo '<div id="id_'.$id.'" class="card bg-color img-container">';
+                                 echo '<img src="'.$image.'" class="card-img-top img-effect" alt="..."">';
                                  echo '<div class="card-body">';
                                      echo '<h5 class="card-title">'.$name.'</h5>';
                                      echo '<p class="card-text">                            
@@ -97,7 +106,7 @@
                                     echo '</div>';
                                  echo '</div>';   
                              echo '</div>';
-                        echo '</div>';   
+                        echo '</div>';     
                 }
             }
             $conn->close();     

@@ -22,9 +22,9 @@ $query = "CREATE TABLE IF NOT EXISTS item (
     name VARCHAR(255) NOT NULL,
     code VARCHAR(255) NOT NULL,
     category INT NOT NULL,
-    price DECIMAL(5,2) NOT NULL,
+    price DECIMAL(7,2) NOT NULL,
     stock INT,
-    discount DECIMAL(3,2),
+    discount DECIMAL(5,2),
     details TEXT,
     image VARCHAR(255)
 )";

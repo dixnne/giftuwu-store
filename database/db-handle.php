@@ -299,44 +299,6 @@ function modifyCoupon($id, $name, $code, $details, $discount, $image, $general, 
     $conn->close();
 }
 
-function generatePurchase($client, $purchaseDate){
-    $username = "root"; 
-    $password = "ch1d0N83"; 
-    $dbname = "giftuwustore";
-    $servername = "mysql_db_php_2"; //docker-compose.yml database name
-    $port = 3306;  
-    $conn = new mysqli($servername, $username, $password, '', $port);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    $conn->select_db($dbname);
-
-    $query = "SELECT * FROM client WHERE id='$client'";
-    $result = $conn->query($query);
-    if ($result->num_rows > 0){
-        while ($row = $result->fetch_assoc()){
-            $currentPurchase = $row["currentPurchase"];
-        }
-    }
-    $cartname = "cart".$client."_".$currentPurchase;
-    $query = "CREATE TABLE IF NOT EXISTS $cartname(
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        item INT NOT NULL,
-        quantity VARCHAR(255) NOT NULL,
-        profits INT
-    )";
-    if ($conn->query($query) === FALSE) {
-        echo "Error creating table cart: " . $conn->error . "<br>";
-    }
-    $query = "INSERT INTO purchase (client, cart, purchaseDate, state, total) VALUES ('$client', '$cartname', '$purchaseDate', '1', '0')";
-    if ($conn->query($query) === FALSE) {
-        echo "Error creating table cart: " . $conn->error . "<br>";
-    }
-    $conn->close();
-}
-
 function getClient($key){
     $username = "root"; 
     $password = "ch1d0N83"; 
@@ -703,5 +665,43 @@ function getItem($id){
     }
     $conn->close();
     return $row;
+}
+
+function generatePurchase($client, $purchaseDate){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $query = "SELECT * FROM client WHERE username='$client'";
+    $result = $conn->query($query);
+    if ($result->num_rows > 0){
+        while ($row = $result->fetch_assoc()){
+            $currentPurchase = $row["currentPurchase"];
+        }
+    }
+    $cartname = "cart".$client."_".$currentPurchase;
+    $query = "CREATE TABLE IF NOT EXISTS $cartname(
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        item INT NOT NULL,
+        quantity VARCHAR(255) NOT NULL,
+        profits INT
+    )";
+    if ($conn->query($query) === FALSE) {
+        echo "Error creating table cart: " . $conn->error . "<br>";
+    }
+    $query = "INSERT INTO purchase (client, cart, purchaseDate, state, total) VALUES ('$client', '$cartname', '$purchaseDate', '1', '0')";
+    if ($conn->query($query) === FALSE) {
+        echo "Error creating table cart: " . $conn->error . "<br>";
+    }
+    $conn->close();
 }
 ?>

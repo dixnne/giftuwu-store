@@ -1,4 +1,4 @@
-<footer class="fixed-bottom">
+<footer class="">
     <div class="pt-3 bg-color3"></div><section class="bg-color2">
         <div class="container">
             <form class="row py-4">

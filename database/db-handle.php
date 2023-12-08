@@ -688,13 +688,6 @@ function generatePurchase($client, $purchaseDate){
             $currentPurchase = $row["currentPurchase"];
         }
     }
-    $cartname = "cart".$client."_".$currentPurchase;
-    $query = "CREATE TABLE IF NOT EXISTS $cartname(
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        item INT NOT NULL,
-        quantity VARCHAR(255) NOT NULL,
-        profits INT
-    )";
     if ($conn->query($query) === FALSE) {
         echo "Error creating table cart: " . $conn->error . "<br>";
     }

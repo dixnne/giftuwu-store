@@ -2,6 +2,7 @@
     session_start();
     require("../database/db-setup.php");
     require("../database/db-handle.php");
+    $category = test_input($_GET["category"]);
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,7 +44,7 @@
 
             $conn->select_db($dbname);
 
-            $query = "SELECT * FROM category WHERE id='2'";
+            $query = "SELECT * FROM category WHERE id='$category'";
             $result = $conn->query($query);
             ?>
             <section id="bodyproducts" class="gradient-background-purple py-5">
@@ -61,7 +62,7 @@
             <div class="row g-4">
             <?php
         
-            $query = "SELECT * FROM item WHERE category='2'";
+            $query = "SELECT * FROM item WHERE category='$category'";
             $result = $conn->query($query);
             if ($result->num_rows > 0){
                 while ($row = $result->fetch_assoc()) {
@@ -106,7 +107,7 @@
                                     echo '</div>';
                                  echo '</div>';   
                              echo '</div>';
-                        echo '</div>';     
+                        echo '</div>';   
                 }
             }
             $conn->close();     
@@ -115,7 +116,7 @@
         </div>
         </section>
         <?php
-        include("../footer/footer.html");
+        include("../footer/footer.php");
         ?>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     </body>

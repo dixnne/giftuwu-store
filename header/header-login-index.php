@@ -60,13 +60,13 @@
                                 <div class="dropdown">
                                     <a class="dropdown-toggle text-decoration-none text-white mt-1" href="#" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                                     <ul class="dropdown-menu">   
-                                        <li><a id="actualizar" class="dropdown-item" href="./store/comestibles.php">Comestibles</a></li>
-                                        <li><a id="vestimenta" class="dropdown-item" href="./store/vestimenta.php">Vestimenta</a></li>
-                                        <li><a id="objetos" class="dropdown-item" href=".#">Objetos</a></li>
-                                        <li><a id="videojuegos" class="dropdown-item" href="#">Videojuegos</a></li>
+                                        <li><a id="actualizar" class="dropdown-item" href="./store/category.php?category=1">Comestibles</a></li>
+                                        <li><a id="vestimenta" class="dropdown-item" href="./store/category.php?category=2">Vestimenta</a></li>
+                                        <li><a id="objetos" class="dropdown-item" href="./store/category.php?category=3">Objetos</a></li>
+                                        <li><a id="videojuegos" class="dropdown-item" href="./store/category.php?category=4">Videojuegos</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a id="envolturas" class="dropdown-item" href="#">Envoluturas</a></li>
-                                        <li><a id="tarjetasderegalo" class="dropdown-item" href="#">Tarjetas de Regalo</a></li>
+                                        <li><a id="envolturas" class="dropdown-item" href="./store/category.php?category=5">Envoluturas</a></li>
+                                        <li><a id="tarjetasderegalo" class="dropdown-item" href="./store/category.php?category=6">Tarjetas de Regalo</a></li>
                                     </ul>
                                 </div>
                             </div>

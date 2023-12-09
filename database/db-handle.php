@@ -661,7 +661,7 @@ function getItem($id){
     return $row;
 }
 
-function addCartItem($user, $item, $addedDate, $quantity){
+function addCartItem($user, $item, $quantity){
     $username = "root"; 
     $password = "ch1d0N83"; 
     $dbname = "giftuwustore";
@@ -672,6 +672,9 @@ function addCartItem($user, $item, $addedDate, $quantity){
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
+
+    date_default_timezone_set('America/Los_Angeles');
+    $addedDate = date('Y-m-d', time());
 
     $conn->select_db($dbname);
 

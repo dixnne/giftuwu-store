@@ -542,15 +542,9 @@ function getItemsCount(){
 
     $conn->select_db($dbname);
 
-    $query = "SELECT COUNT(*) FROM item";
+    $query = "SELECT * FROM item";
     $result = $conn->query($query);
-    if ($result->num_rows > 0){
-        while ($row = $result->fetch_assoc()) {
-            return $row["COUNT()"];
-        }
-    }else {
-        return 0;
-    }
+    return mysqli_num_rows($result);
 }
 
 function insertFeatured($id, $item){
@@ -667,7 +661,7 @@ function getItem($id){
     return $row;
 }
 
-function generatePurchase($client, $purchaseDate){
+function addCartItem($user, $item, $addedDate, $quantity){
     $username = "root"; 
     $password = "ch1d0N83"; 
     $dbname = "giftuwustore";
@@ -681,20 +675,133 @@ function generatePurchase($client, $purchaseDate){
 
     $conn->select_db($dbname);
 
-    $query = "SELECT * FROM client WHERE username='$client'";
+    $query = "SELECT * FROM cart WHERE user='$user' AND item='$item'";
     $result = $conn->query($query);
     if ($result->num_rows > 0){
-        while ($row = $result->fetch_assoc()){
-            $currentPurchase = $row["currentPurchase"];
+        while ($row = $result->fetch_assoc()) {
+            $quantity = $quantity + $row["quantity"];
+            $query = "UPDATE cart SET quantity='$quantity' AND addedDate='$addedDate' WHERE user='$user' AND item='$item'";
+            if ($conn->query($query) === FALSE) {
+                return false;
+            }
+            $conn->close();
+            return true;
         }
+    } else {
+        $query = "INSERT INTO cart (user, item, addedDate, quantity) VALUES ('$user', '$item', '$addedDate', '$quantity')";
+        if ($conn->query($query) === FALSE) {
+            return false;
+        }
+        $conn->close();
+        return true;       
     }
-    if ($conn->query($query) === FALSE) {
-        echo "Error creating table cart: " . $conn->error . "<br>";
+}
+
+function deleteCartItem($user, $item){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
     }
-    $query = "INSERT INTO purchase (client, cart, purchaseDate, state, total) VALUES ('$client', '$cartname', '$purchaseDate', '1', '0')";
+
+    $conn->select_db($dbname);
+
+    $query = "DELETE FROM cart WHERE user='$user' AND item='$item'";
     if ($conn->query($query) === FALSE) {
-        echo "Error creating table cart: " . $conn->error . "<br>";
+        return false;
     }
     $conn->close();
+    return true;
+}
+
+function getCart($user){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $query = "SELECT * FROM cart WHERE user='$user'";
+    $result = $conn->query($query);
+    if ($result->num_rows > 0){
+        return $result;
+    }
+    return "";
+}
+
+function getCartCount($user){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    $query = "SELECT * FROM cart WHERE user='$user'";
+    $result = $conn->query($query);
+    return mysqli_num_rows($result);
+}
+
+function generatePurchase($user){
+    $username = "root"; 
+    $password = "ch1d0N83"; 
+    $dbname = "giftuwustore";
+    $servername = "mysql_db_php_2"; //docker-compose.yml database name
+    $port = 3306;  
+    $conn = new mysqli($servername, $username, $password, '', $port);
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $conn->select_db($dbname);
+
+    date_default_timezone_set('America/Los_Angeles');
+    $purchaseDate = date('Y-m-d', time());
+    $items = 0;
+    $total = 0;
+    $query = "SELECT * FROM cart WHERE user='$user'";
+    $result = $conn->query($query);
+    if ($result->num_rows > 0){
+        while ($row = $result->fetch_assoc()) {
+            $items = $items + $row["quantity"];
+            $item = $row["item"];
+            $query = "SELECT * FROM item WHERE id='$item'";
+            $result = $conn->query($query);
+            if ($result->num_rows > 0){
+                while ($itemrow = $result->fetch_assoc()) {
+                    $total = $total + ($itemrow["price"] * $row["quantity"]);
+                }
+            }
+        }
+    }
+    $query = "DELETE FROM cart WHERE user='$user'";
+    if ($conn->query($query) === FALSE) {
+        return false;
+    }
+    $query = "INSERT INTO purchase (user, purchaseDate, items, total) VALUES ('$user', '$purchaseDate', '$items', '$total')";
+    if ($conn->query($query) === FALSE) {
+        return false;
+    }
+    $conn->close();
+    return true; 
 }
 ?>

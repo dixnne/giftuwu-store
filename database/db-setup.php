@@ -45,15 +45,26 @@ if ($conn->query($query) === FALSE) {
 
 $query = "CREATE TABLE IF NOT EXISTS purchase (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    client INT NOT NULL,
-    cart VARCHAR(255) NOT NULL,
-    purchaseDate DATE,
-    state BOOLEAN,
+    user VARCHAR(255) NOT NULL,
+    purchaseDate DATE NOT NULL,
+    items INT NOT NULL,
     total DECIMAL(10,2) NOT NULL
 )";
 
 if ($conn->query($query) === FALSE) {
     echo "Error creating table purchase: " . $conn->error . "<br>";
+}
+
+$query = "CREATE TABLE IF NOT EXISTS cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user VARCHAR(255) NOT NULL,
+    item INT NOT NULL,
+    addedDate DATE NOT NULL,
+    quantity INT NOT NULL
+)";
+
+if ($conn->query($query) === FALSE) {
+    echo "Error creating table cart: " . $conn->error . "<br>";
 }
 
 $query = "CREATE TABLE IF NOT EXISTS coupon (
@@ -89,7 +100,6 @@ $query = "CREATE TABLE IF NOT EXISTS client (
     username VARCHAR(255) NOT NULL,
     question VARCHAR(255) NOT NULL,
     answer VARCHAR(255) NOT NULL,
-    currentPurchase INT,
     bday DATE
 )";
 

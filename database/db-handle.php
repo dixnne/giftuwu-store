@@ -273,9 +273,10 @@ function deleteCoupon($id){
 
     $query = "DELETE FROM coupon WHERE id='$id'";
     if ($conn->query($query) === FALSE) {
-        echo "Error deleting data: " . $conn->error . "<br>";
+        return false;
     }
     $conn->close();
+    return true;
 }
 
 function modifyCoupon($id, $name, $code, $details, $discount, $image, $general, $item){
@@ -292,11 +293,12 @@ function modifyCoupon($id, $name, $code, $details, $discount, $image, $general, 
 
     $conn->select_db($dbname);
 
-    $query = "UPDATE coupon SET name='$name', code='$code', details='$details', discount='$discount', image='$image', general='$general' WHERE id='$id'";
+    $query = "UPDATE coupon SET name='$name', code='$code', details='$details', discount='$discount', image='$image', general='$general', item='$item' WHERE id='$id'";
     if ($conn->query($query) === FALSE) {
-        echo "Error modifying data: " . $conn->error . "<br>";
+        return false;
     }
     $conn->close();
+    return true;
 }
 
 function generatePurchase($client, $purchaseDate){

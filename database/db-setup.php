@@ -61,7 +61,7 @@ $query = "CREATE TABLE IF NOT EXISTS coupon (
     name VARCHAR(255) NOT NULL,
     code VARCHAR(255) NOT NULL,
     details TEXT NOT NULL,
-    discount DECIMAL(3,2),
+    discount DECIMAL(5,2),
     image VARCHAR(255) NOT NULL,
     general BOOLEAN,
     item INT

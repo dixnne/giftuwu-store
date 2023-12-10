@@ -13,7 +13,7 @@ $("#preview-btn").click(function(){
     $("#category").text($("#item-category").val());
     $("#price").text($("#item-price").val());
     $("#stock").text($("#item-stock").val());
-    if ($("#item-discount").val() == "discount") {
+    if ($("#item-discount").is(':checked')) {
         $("#discount").text($("#item-per").val());
     }else{
         $("#discount").text("No tiene.");

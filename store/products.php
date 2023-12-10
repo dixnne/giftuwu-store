@@ -1,6 +1,7 @@
 <?php
     session_start();
-
+    require("../database/db-setup.php");
+    require("../database/db-handle.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -8,6 +9,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Gift uwu Store</title>
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -25,68 +27,92 @@
             }else{
                 include("../header/header.html");
             }
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
+                if (addCartItem($_SESSION["username"], test_input($_POST["submit"]), 1)) {
+                    echo '<script>
+                    swal("Artículo añadido!", "Gracias por tu preferencia...", "success");
+                    </script>';
+                } else {
+                    echo '<script>
+                    swal("Ups!", "Hubo un error al añadir el artículo...", "error");
+                    </script>';
+                }
+                $_POST["submit"] = "";
+            }
         ?>
+        <section id="bodyproducts" class="gradient-background-purple py-5">
+            <div class="container">
+                <div class="row g-4">
         <?php
-             $username = "root"; 
-             $password = "ch1d0N83"; 
-             $dbname = "giftuwustore";
-             $servername = "mysql_db_php_2"; //docker-compose.yml database name
-             $port = 3306;  
-             $conn = new mysqli($servername, $username, $password, '', $port);
+            $username = "root"; 
+            $password = "ch1d0N83"; 
+            $dbname = "giftuwustore";
+            $servername = "mysql_db_php_2"; //docker-compose.yml database name
+            $port = 3306;  
+            $conn = new mysqli($servername, $username, $password, '', $port);
          
-             if ($conn->connect_error) {
-                 die("Connection failed: " . $conn->connect_error);
-             }else{
-                $conn->select_db($dbname);
-                $query = 'SELECT * FROM  item';
-                $resultado = $conexion -> query($query);
-                 if ($resultado -> num_rows){ 
-                    
-                    echo '<br>';
-                     echo '<div id="bodyproducts" class="form container bg-color4 row row-cols-2 row-cols-md-3 g-4">';
-                     
-                     echo '<br>';
-                     
-                     while( $fila = $resultado -> fetch_assoc()){                         
-                        echo '<div class="col">';
-                            $pricefinal= $fila['price'] - ($fila['price'] * ($fila['discount']/100));
-                            echo '<div id="id_'.$fila['id'].'" class="card bg-color">';
-                                 echo '<img src='. $fila['image'] .' class="card-img-top" alt="..."">';
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            }
+
+            $conn->select_db($dbname);
+
+            $query = "SELECT * FROM item";
+            $result = $conn->query($query);
+            if ($result->num_rows > 0){
+                while ($row = $result->fetch_assoc()) {
+                    $id = $row["id"];
+                    $name = $row["name"];
+                    $category = $row["category"];
+                    $price = $row["price"];
+                    $stock = $row["stock"];
+                    $discount = $row["discount"];
+                    $code = $row["code"];
+                    $details = $row["details"];
+                    $image = $row["image"];
+                    if ($stock == 0) {
+                        $stock = "Producto agotado";
+                    } else {
+                        $stock = "Disponibles: ".$stock;
+                    }
+                    echo '<div class="col-12 col-sm-6 col-md-4 col-lg-3">';
+                            $endprice= $price - ($price * $discount/100);
+                            if ($discount > 0) {
+                                $price = '<span class="text-decoration-line-through">'.$price.'</span>';
+                            }
+                            echo '<div id="id_'.$id.'" class="card bg-color img-container">';
+                                 echo '<img src="'.$image.'" class="card-img-top img-effect" alt="..."">';
                                  echo '<div class="card-body">';
-                                     echo '<h5 class="card-title">'. $fila['name'] .'</h5>';
+                                     echo '<h5 class="card-title">'.$name.'</h5>';
                                      echo '<p class="card-text">                            
-                                     '. $fila['details'] .' <br>                            
-                                      Precio: '. $fila['price'] .' |  Descuento: '. $fila['discount'] .' <br>
-                                      Precio final: ' .$pricefinal. ' <br>
-                                     '. $fila['stock'] .'
+                                     '.$details.' <br>                            
+                                      Precio: $'.$price.' |  Descuento: '.$discount.'% <br>
+                                      Precio final: $' .$endprice. ' <br>
+                                     '.$stock.'
                                      </p>';
                                  echo '</div>'; 
                                  echo '<div class="card-footer bg-color2">';
                                     echo '<div class="row row-cols-2">';
                                         echo'<div>';
-                                            echo '<small class="text-body-secondary">codigo:'. $fila['code'] .'</small>';
+                                            echo '<small class="text-body-secondary">codigo:'.$code.'</small>';
                                         echo'</div>';
-                                        echo'<div class="btn_left">';  
-                                            echo '<a href="#"><button type="button" class="btn btn-outline-light btnb">Add</button></a>';
+                                        echo'<div class="d-flex justify-content-end">';  
+                                            echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post"><button type="submit" value="'.$id.'" class="btn btn-dark">Añadir al Carrito</button></form>';
                                         echo'</div>';
                                     echo '</div>';
                                  echo '</div>';   
                              echo '</div>';
-                        echo '</div>';                
-                     }
-                     echo '<br>';
-                     echo '<br>';
-                     echo '</div>';
-                    
-                 }
-            }  
+                        echo '</div>';   
+                }
+            }
             $conn->close();     
         ?>
-        
+        </div>
+        </div>
+        </section>
         <?php
-        include("../footer/footer.html");
+        include("../footer/footer.php");
         ?>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-        <script src="category.js"></script>
     </body>
 </html>

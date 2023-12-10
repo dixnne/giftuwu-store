@@ -1,0 +1,12 @@
+.bg-colorblack{
+    background-color: black;
+}
+.bg-colorwhite{
+    background-color: white;
+}
+.colorwhite{
+    color:white;
+}
+.crossline{
+    text-decoration: line-through;
+}

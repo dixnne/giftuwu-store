@@ -13,7 +13,7 @@
                 </a>
                 <div class="dropdown text-end col-md-3">
                     <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle text-white" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="<?php echo $_SESSION["image"]; ?>" alt="mdo" width="32" height="32" class="rounded-circle">
+                        <img src="<?php echo $_SESSION["image"]; ?>" alt="mdo" width="60" height="60" class="rounded-circle">
                     </a>
                     <ul class="dropdown-menu text-small">
                         <li><a class="dropdown-item" href="#"><?php echo $_SESSION["username"] ?></a></li>

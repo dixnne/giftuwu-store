@@ -33,7 +33,7 @@
                 $details = test_input($_POST["item-details"]);
                 $price = test_input($_POST["item-price"]);
                 $stock = test_input($_POST["item-stock"]);
-                if (isset($_POST["item-discount"])) {
+                if ($_POST["item-discount"] == "discount") {
                     $discount = test_input($_POST["item-per"]);
                 } else {
                     $discount = 0;

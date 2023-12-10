@@ -7,7 +7,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart3" viewBox="0 0 16 16">
                                     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                                 </svg>
-                                <span class="h5">0</span>
+                                <span class="h5"><?php echo getCartCount($_SESSION["username"]); ?></span>
                             </a>
                         </div>
                         <a href="../index.php" class="d-flex justify-content-center align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none col-12 col-md-6">
@@ -60,13 +60,13 @@
                                 <div class="dropdown">
                                     <a class="dropdown-toggle text-decoration-none text-white mt-1" href="#" data-bs-toggle="dropdown" aria-expanded="false">Tienda</a>
                                     <ul class="dropdown-menu">
-                                        <li><a id="actualizar" class="dropdown-item" href="../store/comestibles.php">Comestibles</a></li>
-                                        <li><a id="vestimenta" class="dropdown-item" href="../store/vestimenta.php">Vestimenta</a></li>
-                                        <li><a id="objetos" class="dropdown-item" href=".#">Objetos</a></li>
-                                        <li><a id="videojuegos" class="dropdown-item" href="#">Videojuegos</a></li>
+                                        <li><a id="actualizar" class="dropdown-item" href="../store/category.php?category=1">Comestibles</a></li>
+                                        <li><a id="vestimenta" class="dropdown-item" href="../store/category.php?category=2">Vestimenta</a></li>
+                                        <li><a id="objetos" class="dropdown-item" href="../store/category.php?category=3">Objetos</a></li>
+                                        <li><a id="videojuegos" class="dropdown-item" href="../store/category.php?category=4">Videojuegos</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a id="envolturas" class="dropdown-item" href="#">Envoluturas</a></li>
-                                        <li><a id="tarjetasderegalo" class="dropdown-item" href="#">Tarjetas de Regalo</a></li>
+                                        <li><a id="envolturas" class="dropdown-item" href="../store/category.php?category=5">Envoluturas</a></li>
+                                        <li><a id="tarjetasderegalo" class="dropdown-item" href="../store/category.php?category=6">Tarjetas de Regalo</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                     </ul>
                     <div class="dropdown text-end col-md-3">
                         <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="<?php echo $_SESSION["image"]; ?>" alt="mdo" width="32" height="32" class="rounded-circle">
+                            <img src="<?php echo $_SESSION["image"]; ?>" alt="mdo" width="60" height="60" class="rounded-circle">
                         </a>
                         <ul class="dropdown-menu text-small">
                             <li><a class="dropdown-item" href="#"><?php echo $_SESSION["username"] ?></a></li>

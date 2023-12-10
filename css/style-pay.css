@@ -39,3 +39,6 @@
     background-color:white;
     padding:20px;
 }
+#bootstrap-override .thanks_size{
+    font-size: xx-large;
+}

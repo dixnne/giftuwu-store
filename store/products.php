@@ -27,6 +27,18 @@
             }else{
                 include("../header/header.html");
             }
+            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
+                if (addCartItem($_SESSION["username"], test_input($_POST["submit"]), 1)) {
+                    echo '<script>
+                    swal("Artículo añadido!", "Gracias por tu preferencia...", "success");
+                    </script>';
+                } else {
+                    echo '<script>
+                    swal("Ups!", "Hubo un error al añadir el artículo...", "error");
+                    </script>';
+                }
+                $_POST["submit"] = "";
+            }
         ?>
         <section id="bodyproducts" class="gradient-background-purple py-5">
             <div class="container">
@@ -85,7 +97,7 @@
                                             echo '<small class="text-body-secondary">codigo:'.$code.'</small>';
                                         echo'</div>';
                                         echo'<div class="d-flex justify-content-end">';  
-                                            echo '<a href="#"><button type="button" class="btn btn-dark">Añadir al Carrito</button></a>';
+                                            echo '<form action="'.$_SERVER['PHP_SELF'].'" method="post"><button type="submit" value="'.$id.'" class="btn btn-dark">Añadir al Carrito</button></form>';
                                         echo'</div>';
                                     echo '</div>';
                                  echo '</div>';   

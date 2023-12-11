@@ -1,5 +1,6 @@
 <footer class="">
-    <div class="pt-3 bg-color3"></div><section class="bg-color2">
+    <div class="pt-3 bg-color3"><p class="py-2 mb-0 text-center fw-bold">ESTA PÁGINA ES UN PROYECTO ACADÉMICO</p></div>
+    <section class="bg-color2">
         <div class="container">
             <form class="row py-4">
                 <div class="col-12 col-md-6">

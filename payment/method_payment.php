@@ -1,5 +1,7 @@
 <?php
     session_start();
+    require("../database/db-setup.php");
+    require("../database/db-handle.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

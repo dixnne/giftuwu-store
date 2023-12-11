@@ -130,9 +130,11 @@
                 </div>
             </div>
         </section>
-        <section>
+        <section >
         <div class="py-2 bg-color3 text-white text-center font-paytone shadow h4">Ofertas del dia </div>
-        <div class="container justify-content: center;">
+
+        <section style="justify-content: space-between; display: flex; padding: 20px;">
+        <div class="container justify-content: center;" >
             <div class="container">
             <div class="card" style="width: 18rem;" >
                 <div class="card-body">
@@ -143,13 +145,44 @@
 
         <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Hoy es el día perfecto para consentirte o sorprender a alguien especial. Reclama este cupon y utilizalo al finalizar tu compra.</font></font></p>
         <a href="#" role="button" class="btn btn-dark btn-lg m-3">Reclamar oferta »</a>
-      </div>
+            </div>
+        </div>
+        </div>
+        <br>
     </div>
-  </div>
+<!-- -------------------------------- -->
+            <div class="container">
+            <div class="card" style="width: 18rem;" >
+                <div class="card-body">
+                    <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Descuento Navideño</font></font></h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Valido para tu proxima compra</font></font></h6>
+
+        <img src="./images/Cupon_pagina_n.png" class="card-img-top" alt="...">
+
+        <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Llego la navidad, disfruta de 40% para tu regalo de navidad. Reclama este cupon y utilizalo al finalizar tu compra.
+        <a href="#" role="button" class="btn btn-dark btn-lg m-3">Reclamar oferta »</a>
+            </div>
+        </div>
+        </div>
+
+        <div class="container">
+            <div class="card" style="width: 18rem;" >
+                <div class="card-body">
+                    <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Descuento para nuestro nuevos usuarios</font></font></h5>
+
+
+        <img src="./images/Cupon_nuevos.png" class="card-img-top" alt="...">
+
+        <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> ¿No sabes si registrarte? Aprovecha esta oportunidad.  Te damos un descuento del 35% para tu primer compra </font></font></p>
+        <a href="#" role="button" class="btn btn-dark btn-lg m-3">Reclamar oferta »</a>
+            </div>
+        </div>
+        </div>
+</section>
  <section>
 
  </section>
-</div>
+
         </section>
         <?php
         include("./footer/footer.php");

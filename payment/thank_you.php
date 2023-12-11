@@ -138,11 +138,11 @@
 
             if (confirmMail($name, $email, $message) && sendMail($name, $email, $message)) {
                 echo '<script>
-                    swal("Bienvenido a Gift uwu Store!", "Se envió la solicitud a Gift uwu Store", "success");
+                    swal("Tu recibo de pago fue enviado a tu correo", "Si no lo has visto aun, checa el spam", "success");
                     </script>';
             } else {
                 echo '<script>
-                swal("Lo sentimos...", "Hubo un problema al enviar tu solicitud.", "error");
+                swal("Lo sentimos...", "Hubo un problema al enviar tu ticket.", "error");
                 </script>';
             }
         }

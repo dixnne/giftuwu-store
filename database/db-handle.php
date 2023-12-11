@@ -185,7 +185,7 @@ function insertItem($name, $code, $category, $price, $stock, $discount, $details
 
     $query = "INSERT INTO item (name, code, category, price, stock, discount, details, image) VALUES ('$name', '$code', '$category', '$price', '$stock', '$discount', '$details', '$image')";
     if ($conn->query($query) === FALSE) {
-        return false;
+        echo "Error inserting data: " . $conn->error . "<br>";
     }
     $conn->close();
     return true;
@@ -685,7 +685,7 @@ function addCartItem($user, $item, $quantity){
     if ($result->num_rows > 0){
         while ($row = $result->fetch_assoc()) {
             $quantity = $quantity + $row["quantity"];
-            $query = "UPDATE cart SET quantity='$quantity' AND addedDate='$addedDate' WHERE user='$user' AND item='$item'";
+            $query = "UPDATE cart SET quantity='$quantity' WHERE user='$user' AND item='$item'";
             if ($conn->query($query) === FALSE) {
                 return false;
             }

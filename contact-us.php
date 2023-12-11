@@ -98,7 +98,6 @@
             $mail->CharSet = 'UTF-8';
             $mail->Subject = "Solicitud de Gift uwu Store";
             $mail->MsgHTML($body);
-            $success = $mail->send();
             if ($mail->send()) {
                 return true;
             }

@@ -8,7 +8,7 @@
                     <p>Recibe las actualizaciones y ofertas antes que todos, y obtén un cupón exclusivo.</p>
                 </div>
                 <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                    <form action="../sub.php">
+                    <form action="./sub.php">
                         <input id="subscribe" name="email" type="email" class="form-control w-75" placeholder="Email address">
                         <button class="btn btn-light mx-2" type="submit" name="submit">Subscribe</button>
                     </form>

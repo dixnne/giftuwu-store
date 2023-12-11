@@ -765,7 +765,7 @@ function getCartCount($user){
     return mysqli_num_rows($result);
 }
 
-function generatePurchase($user){
+function generatePurchase($user, $items, $total){
     $username = "root"; 
     $password = "ch1d0N83"; 
     $dbname = "giftuwustore";
@@ -781,24 +781,22 @@ function generatePurchase($user){
 
     date_default_timezone_set('America/Los_Angeles');
     $purchaseDate = date('Y-m-d', time());
-    $items = 0;
-    $total = 0;
-    $query = "SELECT * FROM cart WHERE user='$user'";
+    $query = "DELETE FROM cart WHERE user='$user'";
+    if ($conn->query($query) === FALSE) {
+        return false;
+    }
+    $query = "INSERT INTO purchase (user, purchaseDate, items, total) VALUES ('$user', '$purchaseDate', '$items', '$total')";
+    if ($conn->query($query) === FALSE) {
+        return false;
+    }
+    $query = "SELECT * FROM store WHERE name='Gift uwu Store'";
     $result = $conn->query($query);
     if ($result->num_rows > 0){
         while ($row = $result->fetch_assoc()) {
-            $items = $items + $row["quantity"];
-            $item = $row["item"];
-            $query = "SELECT * FROM item WHERE id='$item'";
-            $result = $conn->query($query);
-            if ($result->num_rows > 0){
-                while ($itemrow = $result->fetch_assoc()) {
-                    $total = $total + ($itemrow["price"] * $row["quantity"]);
-                }
-            }
+            $profits = $row["profits"] + $total;
         }
     }
-    $query = "DELETE FROM cart WHERE user='$user'";
+    $query = "UPDATE store SET profits='$profits' WHERE name='Gift uwu Store'";
     if ($conn->query($query) === FALSE) {
         return false;
     }

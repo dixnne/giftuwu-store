@@ -30,7 +30,7 @@
         <section class="gradient-background-purple py-5">
             <div class="container">
                 <h1 class="text-center">Carrito de Compras</h1>
-                <form action="#" method="post">
+                <form action="../payment/process.php" method="post">
                     <div class="row">
                         <div class="col-12 col-md-6">
                             <?php 
@@ -47,6 +47,7 @@
                             $conn->select_db($dbname); 
 
                             $user = $_SESSION["username"];
+                            $tot_neto = $total_est = $descuento = 0;
                             $query = "SELECT * FROM cart WHERE user='$user'";
                             $result = $conn->query($query);
                             if ($result->num_rows > 0) {
@@ -54,11 +55,10 @@
                                     $itemid = $row["item"];
                                     $query = "SELECT * FROM item WHERE id='$itemid'";
                                     $itemres = $conn->query($query);
-                                    $tot_neto = $total_est = $descuento = 0;
                                     if ($itemres->num_rows > 0) {
                                         while ($item = $itemres->fetch_assoc()) {
-                                            $pricefinal= $item['price'] - ($item['price'] * ($item['discount']/100));
-                                            $tot_neto += $item['price'];
+                                            $pricefinal= ($item['price'] - ($item['price'] * ($item['discount']/100)))*$row["quantity"];
+                                            $tot_neto += $item['price']*$row["quantity"];
                                             $descuento +=$item['price'] * ($item['discount']/100);
                                             $total_est += $pricefinal;
 
@@ -66,7 +66,7 @@
                                                 echo '<div class="row g-0">';
                                                     echo '<div class=" col-md-2 d-flex align-items-center justify-content-center">';
                                                         echo '<div class="form-group d-flex align-items-center justify-content-center">';
-                                                            echo '<label><input type="checkbox" class="form-check-input" name="objects" value="'.$item['id'].'" checked></label> ';
+                                                            echo '<label><input type="checkbox" class="form-check-input" name="items[]" value="'.$item['id'].'" checked></label> ';
                                                         echo '</div>';
                                                     echo '</div>';
                                                     echo '<div class="col-md-3">';
@@ -80,17 +80,17 @@
                                                             echo '<p class="card-text">                            
                                                                 '. $item['details'].'</p>';
                                                             if ($item['discount']>=0.01) {
-                                                                echo '<p class="crossline"> Precio Unitario: '. $item['price'].'</p>';
-                                                                echo '<p class="card-text"> Descuento: '.$item['discount'].'</p>';   
+                                                                echo '<p class="text-decoration-line-through"> Precio Unitario: $'. $item['price'].'</p>';
+                                                                echo '<p class="card-text"> Descuento: '.$item['discount'].'%</p>';   
                                                             }else{
-                                                                echo '<p> Precio Unitario: '. $item['price'].'</p>';
+                                                                echo '<p> Precio Unitario: $'. $item['price'].'</p>';
                                                             }
-                                                            echo '<p class="card-text"> Precio final: '.$pricefinal.'</p>';
+                                                            echo '<p class="card-text lead bg-color1 p-2 rounded"> Precio final: $'.$pricefinal.'</p>';
                                                         echo '</div>';
                                                     echo '</div>';
                                                     echo '<div class="bg-color2 col-md-2 d-flex align-items-center justify-content-center">';
                                                         echo '<div class="form-group d-flex align-items-center justify-content-center">';
-                                                            echo '<label><input class="form-control" style="max-width: 50px;" type="number" min="1" max="'. $item['stock'] .'" name="objects" value="'.$row["quantity"].'" ></label> ';
+                                                            echo '<label><input class="form-control" style="max-width: 50px;" type="number" min="1" max="'. $item['stock'] .'" name="quantity[]" value="'.$row["quantity"].'" ></label> ';
                                                         echo '</div>';
                                                     echo '</div>';
                                                 echo '</div>';
@@ -112,7 +112,7 @@
                                 <div>
                                     <h2 class="text-white"> Hagamos cuentas</h2>
                                     <p class="crossline text-white"> Total en articulos: $<?php echo $tot_neto; ?> </p>
-                                    <p class="text-white"> Descuento: <?php echo $descuento; ?>%</p>
+                                    <p class="text-white"> Descuento: $<?php echo $descuento; ?></p>
                                     <p class="lead text-white"> Total estimado: $<?php echo $total_est; ?></p>
                                 </div>
                             </div>

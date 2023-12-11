@@ -101,7 +101,7 @@
             <div class="py-2 bg-color3 text-white text-center font-paytone shadow h4">Productos Destacados</div>
             <div class="container">
                 <div class="row py-4 text-center">
-                    <?php
+                <?php
                         for ($i=1; $i <= 3; $i++) { 
                             $featured = getFeatured($i);
                             $item = getItem($featured["item"]);
@@ -131,9 +131,25 @@
             </div>
         </section>
         <section>
+        <div class="py-2 bg-color3 text-white text-center font-paytone shadow h4">Ofertas del dia </div>
+        <div class="container justify-content: center;">
             <div class="container">
+            <div class="card" style="width: 18rem;" >
+                <div class="card-body">
+                    <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Descuento del 15%</font></font></h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Unico dia</font></font></h6>
 
-            </div>
+        <img src="./images/Cupon_pagina.png" class="card-img-top" alt="...">
+
+        <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Hoy es el día perfecto para consentirte o sorprender a alguien especial. Reclama este cupon y utilizalo al finalizar tu compra.</font></font></p>
+        <a href="#" role="button" class="btn btn-dark btn-lg m-3">Reclamar oferta »</a>
+      </div>
+    </div>
+  </div>
+ <section>
+
+ </section>
+</div>
         </section>
         <?php
         include("./footer/footer.php");

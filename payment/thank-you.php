@@ -24,59 +24,7 @@ if (!isset($_SESSION["username"]) || $_SERVER["REQUEST_METHOD"] != "POST" || !is
         <link rel="stylesheet" href="../css/style-pay.css">
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
-    <body id="bootstrap-override" class="bg-color">
-        <?php
-        include("../header/header-login.php");
-        ?>
-        <section>
-            <div class="container">
-                <div class="contenedor-central contenedor-flex row">
-                <div class="contenedor-padre">
-                    <div class="contenedor-hijo contenedor-flex row">
-                        <header class="bg-black text-light text-center font-paytone display-1">gracias por tu compra</header>
-                        <div class="space bg-color4 shadow p-5 text-light">
-                            <h1 class="text-center">
-                                Tu compra ha llegado a su destino, ¡Que la disfrutes!
-                            </h1>
-                        </div>
-                        <div class="shadow p-5 bg-body-tertiary fs-4">
-                            <p>Hicimos entrega en //direccion</p>
-                            <p>Recibió: //nombre</p>
-                            <p>Relación con el titular: Familiar o amigo/a</p>
-                            <hr>
-                            <p>Devolver siempre es gratis, si el producto que recibiste no te agradó cuentas con <strong>30 dias para realizar la devolución.</strong></p><br>
-                            <p class="font-paytone text-center">¡gracias por tu preferencia! uwu</p>
-                            <p class="fw-light fst-italic fs-6 text-start">Atte: El equipo de <strong>GIFT UWU STORE</strong></p>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-            <div class="container py-3 text-center">
-                <form action="./thank-you-pdf.php" method="post">
-                    <input type="hidden" name="domicilio" value="<?php echo $_POST["domicilio"] ?>">
-                    <input type="hidden" name="pago" value="<?php echo $_POST["pago"] ?>">
-                    <input type="hidden" name="total" value="<?php echo $_POST["total"] ?>">
-                    <input type="hidden" name="coupondis" value="<?php echo $_POST["coupondis"] ?>">
-                    <input type="hidden" name="totalest" value="<?php echo $_POST["totalest"] ?>">
-                    <input type="hidden" name="taxes" value="<?php echo $_POST["taxes"] ?>">
-                    <input type="hidden" name="totaltaxes" value="<?php echo $_POST["totaltaxes"] ?>">
-                    <input type="hidden" name="shipment" value="<?php echo $_POST["shipment"] ?>">
-                    <input type="hidden" name="totalship" value="<?php echo $_POST["totalship"] ?>">
-                    <input type="hidden" name="name" value="<?php echo $_POST["name"] ?>">
-                    <input type="hidden" name="mail" value="<?php echo $_POST["mail"] ?>">
-                    <button class="btn btn-dark" formtarget="_blank" type="submit" name="submit">Ver Ticket en PDF</button>
-                </form>
-            </div>
-        </section>
-        <?php
-        include("../footer/footer.php");
-        ?>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    </body>
-</html>
-<?php
+    <?php
         use PHPMailer\PHPMailer\PHPMailer;
         use PHPMailer\PHPMailer\Exception;
 
@@ -252,5 +200,56 @@ if (!isset($_SESSION["username"]) || $_SERVER["REQUEST_METHOD"] != "POST" || !is
         }
 
         ?>
+    <body id="bootstrap-override" class="bg-color">
+        <?php
+        include("../header/header-login.php");
+        ?>
+        <section>
+            <div class="container">
+                <div class="contenedor-central contenedor-flex row">
+                <div class="contenedor-padre">
+                    <div class="contenedor-hijo contenedor-flex row">
+                        <header class="bg-black text-light text-center font-paytone display-1">Gracias por tu compra</header>
+                        <div class="space bg-color4 shadow p-5 text-light">
+                            <h1 class="text-center">
+                                Tu compra ha sido realizada, ¡Que la disfrutes!
+                            </h1>
+                        </div>
+                        <div class="shadow p-5 bg-body-tertiary fs-4">
+                            <p>Haremos entrega en: <?php echo test_input($_POST["domicilio"]) ?></p>
+                            <p>A nombre de: <?php echo test_input($_POST["name"]) ?></p>
+                            <hr>
+                            <p>Devolver siempre es gratis, si el producto que recibiste no te agradó cuentas con <strong>30 dias para realizar la devolución.</strong></p><br>
+                            <p class="font-paytone text-center">¡gracias por tu preferencia! uwu</p>
+                            <p class="fw-light fst-italic fs-6 text-start">Atte: El equipo de <strong>GIFT UWU STORE</strong></p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="container py-3 text-center">
+                <form action="./thank-you-pdf.php" method="post">
+                    <input type="hidden" name="domicilio" value="<?php echo $_POST["domicilio"] ?>">
+                    <input type="hidden" name="pago" value="<?php echo $_POST["pago"] ?>">
+                    <input type="hidden" name="total" value="<?php echo $_POST["total"] ?>">
+                    <input type="hidden" name="coupondis" value="<?php echo $_POST["coupondis"] ?>">
+                    <input type="hidden" name="totalest" value="<?php echo $_POST["totalest"] ?>">
+                    <input type="hidden" name="taxes" value="<?php echo $_POST["taxes"] ?>">
+                    <input type="hidden" name="totaltaxes" value="<?php echo $_POST["totaltaxes"] ?>">
+                    <input type="hidden" name="shipment" value="<?php echo $_POST["shipment"] ?>">
+                    <input type="hidden" name="totalship" value="<?php echo $_POST["totalship"] ?>">
+                    <input type="hidden" name="name" value="<?php echo $_POST["name"] ?>">
+                    <input type="hidden" name="mail" value="<?php echo $_POST["mail"] ?>">
+                    <button class="btn btn-dark btn-lg" formtarget="_blank" type="submit" name="submit">Ver Ticket en PDF</button>
+                </form>
+            </div>
+        </section>
+        <?php
+        include("../footer/footer.php");
+        ?>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>
 </body>
 </html>

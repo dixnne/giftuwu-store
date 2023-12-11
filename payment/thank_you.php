@@ -145,11 +145,7 @@
                 swal("Lo sentimos...", "Hubo un problema al enviar tu ticket.", "error");
                 </script>';
             }
-        }
-
-        //Correo
-
-        
+        }  
     ?>
 </body>
 </html>

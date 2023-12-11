@@ -5,93 +5,84 @@ require("../database/db-handle.php");
 if (!isset($_SESSION["username"]) || $_SERVER["REQUEST_METHOD"] != "POST" || !isset($_POST["submit"])) {
     header("Location: ../session/login.php");
 }
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Gift uwu Store</title>
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Bungee&display=swap" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="../css/styles.css">
+        <link rel="stylesheet" href="../css/style-pay.css">
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    </head>
+    <body id="bootstrap-override" class="bg-color">
+        <?php
+        include("../header/header-login.php");
+        ?>
+        <section>
+            <div class="container">
+                <div class="contenedor-central contenedor-flex row">
+                <div class="contenedor-padre">
+                    <div class="contenedor-hijo contenedor-flex row">
+                        <header class="bg-black text-light text-center font-paytone display-1">gracias por tu compra</header>
+                        <div class="space bg-color4 shadow p-5 text-light">
+                            <h1 class="text-center">
+                                Tu compra ha llegado a su destino, ¡Que la disfrutes!
+                            </h1>
+                        </div>
+                        <div class="shadow p-5 bg-body-tertiary fs-4">
+                            <p>Hicimos entrega en //direccion</p>
+                            <p>Recibió: //nombre</p>
+                            <p>Relación con el titular: Familiar o amigo/a</p>
+                            <hr>
+                            <p>Devolver siempre es gratis, si el producto que recibiste no te agradó cuentas con <strong>30 dias para realizar la devolución.</strong></p><br>
+                            <p class="font-paytone text-center">¡gracias por tu preferencia! uwu</p>
+                            <p class="fw-light fst-italic fs-6 text-start">Atte: El equipo de <strong>GIFT UWU STORE</strong></p>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="container py-3 text-center">
+                <form action="./thank-you-pdf.php" method="post">
+                    <input type="hidden" name="domicilio" value="<?php echo $_POST["domicilio"] ?>">
+                    <input type="hidden" name="pago" value="<?php echo $_POST["pago"] ?>">
+                    <input type="hidden" name="total" value="<?php echo $_POST["total"] ?>">
+                    <input type="hidden" name="coupondis" value="<?php echo $_POST["coupondis"] ?>">
+                    <input type="hidden" name="totalest" value="<?php echo $_POST["totalest"] ?>">
+                    <input type="hidden" name="taxes" value="<?php echo $_POST["taxes"] ?>">
+                    <input type="hidden" name="totaltaxes" value="<?php echo $_POST["totaltaxes"] ?>">
+                    <input type="hidden" name="shipment" value="<?php echo $_POST["shipment"] ?>">
+                    <input type="hidden" name="totalship" value="<?php echo $_POST["totalship"] ?>">
+                    <input type="hidden" name="name" value="<?php echo $_POST["name"] ?>">
+                    <input type="hidden" name="mail" value="<?php echo $_POST["mail"] ?>">
+                    <button class="btn btn-dark" formtarget="_blank" type="submit" name="submit">Ver Ticket en PDF</button>
+                </form>
+            </div>
+        </section>
+        <?php
+        include("../footer/footer.php");
+        ?>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </body>
+</html>
+<?php
         use PHPMailer\PHPMailer\PHPMailer;
         use PHPMailer\PHPMailer\Exception;
 
         require '../PHPMailer-master/src/Exception.php';
         require '../PHPMailer-master/src/PHPMailer.php';
         require '../PHPMailer-master/src/SMTP.php';
-        require('../fpdf/fpdf.php');
-
-        $today = getdate();
-        $date = $today["year"]."-".$today["mon"]."-".$today["mday"];
-        $date = new DateTime($date, new DateTimeZone('America/Mexico_City'));
-        
-
-        $pdf = new FPDF('P','mm','Letter');
-        $pdf->AddPage();
-        $pdf->SetFont('Arial','B',16);
-        $pdf->SetCreator('Gift uwu Store');
-
-        $pdf->SetMargins(20, 20, 20);
-        $pdf->SetDrawColor(122, 69, 121);
-        $pdf->SetLineWidth(5);
-        $pdf->Rect(0, 0, 216, 279);
-
-        $pdf->Image('../images/logo.png', 10, 10, 18);
-        AddText($pdf,"Gift uwu Store", 30, 10, 'L', 'Helvetica','B',20,0,0,0);
-        AddText($pdf, $date->format('d-m-Y'), 30, 17, 'L', 'Helvetica','',15,0,0,0);
-        AddText($pdf,"Los regalos mas uwu a los precios menos unu!", 10, 10, 'R', 'Helvetica','I',15,0,0,0);
-        AddText($pdf,utf8_decode("Cliente: ".test_input($_POST["name"])), 10, 27, 'L', 'Helvetica','',10,0,0,0);
-        AddText($pdf,utf8_decode("Domicilio: ".test_input($_POST["domicilio"])), 10, 31, 'L', 'Helvetica','',10,0,0,0);
-        AddText($pdf,utf8_decode("Devolver siempre es gratis, si el producto que recibiste no te agradó cuentas con 30 dias para realizar la devolución."), 10, 35, 'L', 'Helvetica','',10,0,0,0);
-        AddText($pdf,utf8_decode("¡Gracias por tu preferencia! uwu"), 10, 39, 'L', 'Helvetica','',10,0,0,0);
-
-        AddText($pdf,utf8_decode("Artículos a recibir: "), 10, 50, 'L', 'Helvetica','',10,0,0,0);
-        $username = "root"; 
-        $password = "ch1d0N83"; 
-        $dbname = "giftuwustore";
-        $servername = "mysql_db_php_2"; //docker-compose.yml database name
-        $port = 3306;  
-        $conn = new mysqli($servername, $username, $password, '', $port);
-     
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-        $conn->select_db($dbname); 
-
-        $coordinatey = 60;
-        $user = $_SESSION["username"];
-        $tot_neto = $total_est = $descuento = 0;
-        $query = "SELECT * FROM cart WHERE user='$user'";
-        $result = $conn->query($query);
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $itemid = $row["item"];
-                $query = "SELECT * FROM item WHERE id='$itemid'";
-                $itemres = $conn->query($query);
-                if ($itemres->num_rows > 0) {
-                    while ($item = $itemres->fetch_assoc()) {
-                        AddText($pdf,utf8_decode($item["name"]), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
-                        $coordinatey +=5;
-                    }
-                }
-            }
-        }
-
-        $conn->close();
-        $coordinatey += 7;
-        AddText($pdf,utf8_decode("Descuento en cupón: $".test_input($_POST["coupondis"])), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
-        $coordinatey += 5;
-        AddText($pdf,utf8_decode("Total sin deducciones: $".test_input($_POST["totalest"])), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
-        $coordinatey += 7;
-        AddText($pdf,utf8_decode("Impuestos: $".test_input($_POST["taxes"])), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
-        $coordinatey += 5;
-        AddText($pdf,utf8_decode("Total con impuestos: $".test_input($_POST["totaltaxes"])), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
-        $coordinatey += 7;
-        AddText($pdf,utf8_decode("Envío: $".test_input($_POST["shipment"])), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
-        $coordinatey += 5;
-        AddText($pdf,utf8_decode("Total con envío: $".test_input($_POST["totalship"])), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
-        $coordinatey += 7;
-        AddText($pdf,utf8_decode("Método de pago: ".test_input($_POST["pago"])), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
-        $coordinatey += 5;
-        AddText($pdf,utf8_decode("Haremos entrega en: ".test_input($_POST["domicilio"])), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
-        $coordinatey += 5;
-        AddText($pdf,utf8_decode("A nombre de: ".test_input($_POST["name"])), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
-        $coordinatey += 10;
-        AddText($pdf,utf8_decode("Total a pagar: $".test_input($_POST["total"])), 10, $coordinatey, 'L', 'Helvetica','',15,0,0,0);
-        $pdf->Output("giftuwu-ticket.pdf", "I");
-
 
         $mail = new PHPMailer();
             $body = '<!DOCTYPE html>
@@ -260,14 +251,6 @@ if (!isset($_SESSION["username"]) || $_SERVER["REQUEST_METHOD"] != "POST" || !is
             </script>';
         }
 
-        //$name = text to be added, $x= x cordinate, $y = y coordinate, $a = alignment , $f= Font Name, $t = Bold / Italic, $s = Font Size, 
-        //$r = Red, $g = Green Font color, $b = Blue Font Color
-        function AddText($pdf, $text, $x, $y, $a, $f, $t, $s, $r, $g, $b) {
-            $pdf->SetFont($f,$t,$s);	
-            $pdf->SetXY($x,$y);
-            $pdf->SetTextColor($r,$g,$b);
-            $pdf->Cell(0,10,$text,0,0,$a);	
-        }
-    ?>
+        ?>
 </body>
 </html>

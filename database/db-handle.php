@@ -781,6 +781,26 @@ function generatePurchase($user, $items, $total){
 
     date_default_timezone_set('America/Los_Angeles');
     $purchaseDate = date('Y-m-d', time());
+
+    $query = "SELECT * FROM cart WHERE user='$user'";
+    $result = $conn->query($query);
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $itemid = $row["item"];
+            $query = "SELECT * FROM item WHERE id='$itemid'";
+            $itemres = $conn->query($query);
+            if ($itemres->num_rows > 0) {
+                while ($item = $itemres->fetch_assoc()) {
+                    $stock = $item["stock"] - $row["quantity"];
+                    $query = "UPDATE item SET stock='$stock' WHERE id='$itemid'";
+                    if ($conn->query($query) === FALSE) {
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+
     $query = "DELETE FROM cart WHERE user='$user'";
     if ($conn->query($query) === FALSE) {
         return false;
@@ -797,10 +817,6 @@ function generatePurchase($user, $items, $total){
         }
     }
     $query = "UPDATE store SET profits='$profits' WHERE name='Gift uwu Store'";
-    if ($conn->query($query) === FALSE) {
-        return false;
-    }
-    $query = "INSERT INTO purchase (user, purchaseDate, items, total) VALUES ('$user', '$purchaseDate', '$items', '$total')";
     if ($conn->query($query) === FALSE) {
         return false;
     }

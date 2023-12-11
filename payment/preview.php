@@ -18,7 +18,7 @@ if (!isset($_SESSION["username"])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/style-pay.css">
-    <title>Pagando articulos</title>
+    <title>Gift uwu Store</title>
 </head>
 <body id="bootstrap-override" class="bg-color">
     <?php
@@ -75,18 +75,7 @@ if (!isset($_SESSION["username"])) {
                                     }
                                 }
                             }
-                            $username = "root"; 
-                            $password = "ch1d0N83"; 
-                            $dbname = "giftuwustore";
-                            $servername = "mysql_db_php_2"; //docker-compose.yml database name
-                            $port = 3306;  
-                            $conn = new mysqli($servername, $username, $password, '', $port);
 
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
-
-                            $conn->select_db($dbname);
                             $query = "SELECT * FROM purchase";
                             $result = $conn->query($query);
                             $folio = $result->num_rows + 1;
@@ -191,10 +180,19 @@ if (!isset($_SESSION["username"])) {
                         <p><i class="fa-solid fa-money-bill"></i> Total a pagar: $<?php echo $total; ?></p>
                         
                         <div class="d-grid gap-2">
-                            <form action="./thank_you.php" method="post">
-                                <input type="hidden" name="domicilio" value="<?php echo test_input($_POST["metodo_pago"]).", ".test_input($_POST["domicilio"]).", ".test_input($_POST["ciudad"]).", ".test_input($_POST["pais"]) ?>">
-                                <input type="hidden" name="pago" value="<?php echo $total; ?>">
-                                <button class="btn btn-primary" type="submit" name="submit">PAGAR</button>
+                            <form action="./thank-you.php" method="post">
+                                <input type="hidden" name="domicilio" value="<?php echo test_input($_POST["domicilio"]).", ".test_input($_POST["ciudad"]) ?>">
+                                <input type="hidden" name="pago" value="<?php echo test_input($_POST["metodo_pago"]) ?>">
+                                <input type="hidden" name="total" value="<?php echo $total; ?>">
+                                <input type="hidden" name="coupondis" value="<?php echo $total_ship * $couponDiscount /100; ?>">
+                                <input type="hidden" name="totalest" value="<?php echo $total_est; ?>">
+                                <input type="hidden" name="taxes" value="<?php echo $total_est * $taxes / 100 ?>">
+                                <input type="hidden" name="totaltaxes" value="<?php echo $total_taxes; ?>">
+                                <input type="hidden" name="shipment" value="<?php echo $total_taxes * $shipment / 100 ?>">
+                                <input type="hidden" name="totalship" value="<?php echo $total_ship; ?>">
+                                <input type="hidden" name="name" value="<?php echo test_input($_POST["nombre"]); ?>">
+                                <input type="hidden" name="mail" value="<?php echo test_input($_POST["mail"]); ?>">
+                                <button class="btn btn-primary" target="_blank" type="submit" name="submit">PAGAR</button>
                             </form>
                         </div>
                     </div>

@@ -50,5 +50,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
-header("Location: ./preview.php");
+header("Location: ./method_payment.php");
 ?>

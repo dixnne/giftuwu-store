@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="../css/style-pay.css">
     <style>
     </style>
-    <title>Método de pago</title>
+    <title>Gift uwu Store</title>
 </head>
 <body id="bootstrap-override" class="bg-color">
 <?php

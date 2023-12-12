@@ -87,7 +87,7 @@
                    break;    
            }
         }
-        $conn->close();
+        echo json_encode($row);
    } 
    //Menor a Mayor 
    function menor ($row){ 

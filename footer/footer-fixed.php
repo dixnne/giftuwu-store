@@ -40,11 +40,11 @@
                     <p>PROYECTO ACADEMICO</p>
                 </a>
                 <ul class="nav col-md-5 justify-content-end">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Home</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Tienda</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Nosotros</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Contáctanos</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-white">Ayuda</a></li>
+                    <li class="nav-item"><a href="../index.php" class="nav-link px-2 text-white">Home</a></li>
+                    <li class="nav-item"><a href="../store/products.php" class="nav-link px-2 text-white">Tienda</a></li>
+                    <li class="nav-item"><a href="../us.php" class="nav-link px-2 text-white">Nosotros</a></li>
+                    <li class="nav-item"><a href="../contact-us.php" class="nav-link px-2 text-white">Contáctanos</a></li>
+                    <li class="nav-item"><a href="../help.php" class="nav-link px-2 text-white">Ayuda</a></li>
                 </ul>
             </div>
         </div>

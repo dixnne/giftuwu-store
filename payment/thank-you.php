@@ -118,13 +118,13 @@ if (!isset($_SESSION["username"]) || $_SERVER["REQUEST_METHOD"] != "POST" || !is
                     $items = 0;
                     $query = "SELECT * FROM cart WHERE user='$user'";
                     $result = $conn->query($query);
+                    $_SESSION["cart"] = [];
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
                             $itemid = $row["item"];
                             $query = "SELECT * FROM item WHERE id='$itemid'";
                             $itemres = $conn->query($query);
                             if ($itemres->num_rows > 0) {
-                                $_SESSION["cart"] = [];
                                 while ($item = $itemres->fetch_assoc()) {
                                     $_SESSION["cart"][] = $item["name"];
                                     $body.= '<li>'.$item["name"].'</li>';
@@ -133,7 +133,6 @@ if (!isset($_SESSION["username"]) || $_SERVER["REQUEST_METHOD"] != "POST" || !is
                             }
                         }
                     }
-                    var_dump($_SESSION["cart"]);
                     $conn->close();
 
                     $body.= '</ul>

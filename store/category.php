@@ -32,17 +32,19 @@
                         window.location = "../session/login.php";
                     });
                     </script>';
-                }
-                if (addCartItem($_SESSION["username"], test_input($_POST["submit"]), 1)) {
-                    echo '<script>
-                    swal("Artículo añadido!", "Gracias por tu preferencia...", "success");
-                    </script>';
                 } else {
-                    echo '<script>
-                    swal("Ups!", "Hubo un error al añadir el artículo...", "error");
-                    </script>';
+                    if (addCartItem($_SESSION["username"], test_input($_POST["submit"]), 1)) {
+                        echo '<script>
+                        swal("Artículo añadido!", "Gracias por tu preferencia...", "success");
+                        </script>';
+                    } else {
+                        echo '<script>
+                        swal("Ups!", "Hubo un error al añadir el artículo...", "error");
+                        </script>';
+                    }
+                    $_POST["submit"] = "";
+                    
                 }
-                $_POST["submit"] = "";
             }
             if (isset($_SESSION["username"])) {
                 include("../header/header-login.php");

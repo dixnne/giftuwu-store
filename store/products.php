@@ -27,21 +27,22 @@
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
                 if (!isset($_SESSION["username"])) {
                     echo '<script>
-                    swal("Identifícate", "Para acceder tienes que iniciar sesión.", "error").then(function() {
+                    swal("Identifícate!", "Tienes que iniciar sesión...", "error").then(function() {
                         window.location = "../session/login.php";
                     });
                     </script>';
-                }
-                if (addCartItem($_SESSION["username"], test_input($_POST["submit"]), 1)) {
-                    echo '<script>
-                    swal("Artículo añadido!", "Gracias por tu preferencia...", "success");
-                    </script>';
                 } else {
-                    echo '<script>
-                    swal("Ups!", "Hubo un error al añadir el artículo...", "error");
-                    </script>';
+                    if (addCartItem($_SESSION["username"], test_input($_POST["submit"]), 1)) {
+                        echo '<script>
+                        swal("Artículo añadido!", "Gracias por tu preferencia...", "success");
+                        </script>';
+                    } else {
+                        echo '<script>
+                        swal("Ups!", "Hubo un error al añadir el artículo...", "error");
+                        </script>';
+                    }
+                    $_POST["submit"] = "";   
                 }
-                $_POST["submit"] = "";
             }
             if (isset($_SESSION["username"])) {
                 include("../header/header-login.php");
@@ -54,6 +55,7 @@
             <div class="container">
                 <div id="conteinercards"  class="row g-4">
         <?php
+        
             $username = "root"; 
             $password = "ch1d0N83"; 
             $dbname = "giftuwustore";

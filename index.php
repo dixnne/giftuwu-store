@@ -144,7 +144,7 @@
         <img src="./images/Cupon_pagina.png" class="card-img-top" alt="...">
 
         <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Hoy es el día perfecto para consentirte o sorprender a alguien especial. Reclama este cupon y utilizalo al finalizar tu compra.</font></font></p>
-        <h5 href="#" role="button" class="btn btn-dark btn-lg m-3"> DESCUENTOS15 </h5>
+        <!-- <h5 href="#" role="button" class="btn btn-dark btn-lg m-3"> DESCUENTOS15 </h5> -->
             </div>
         </div>
         </div>
@@ -174,7 +174,7 @@
         <img src="./images/Cupon_nuevos.png" class="card-img-top" alt="...">
 
         <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> ¿No sabes si registrarte? Aprovecha esta oportunidad.  Te damos un descuento del 35% para tu primer compra </font></font></p>
-        <a href="#" role="text" class="btn btn-dark btn-lg m-3">NewUser2023</a>
+        <!-- <a href="#" role="text" class="btn btn-dark btn-lg m-3">NewUser2023</a> -->
             </div>
         </div>
         </div>

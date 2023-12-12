@@ -44,11 +44,15 @@
 
                 if (subMail($email)) {
                     echo '<script>
-                        swal("Bienvenido a Gift uwu Store!", "Se envió la suscripción a Gift uwu Store", "success");
+                        swal("Bienvenido a Gift uwu Store!", "Se envió la suscripción a Gift uwu Store", "success").then(function() {
+                            window.location = "./index.php";
+                        });
                         </script>';
                 } else {
                     echo '<script>
-                    swal("Lo sentimos...", "Hubo un problema al enviar tu solicitud.", "error");
+                    swal("Lo sentimos...", "Hubo un problema al enviar tu suscripción.", "error").then(function() {
+                        window.location = "./index.php";
+                    });
                     </script>';
                 }
             }
@@ -68,6 +72,7 @@
             </head>
             <body>
                 <H1>Gracias por suscribirte!</H1><br>
+                <img src='cid:coupon' width='800px'><br>
                 <p>Atentamente, Gift uwu Store</p>
             </body>
             </html>";
@@ -91,6 +96,7 @@
             $mail->isHTML(true);
             $mail->CharSet = 'UTF-8';
             $mail->Subject = "Suscripción a Gift uwu Store";
+            $mail->AddEmbeddedImage('./images/Cupon de Bienvenida.png', 'coupon');
             $mail->MsgHTML($body);
             if ($mail->send()) {
                 return true;
@@ -99,7 +105,7 @@
         }
         ?>
         <?php
-        include("./footer/footer.php");
+        include("./footer/footer-fixed.php");
         ?>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

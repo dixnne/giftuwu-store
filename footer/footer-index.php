@@ -2,16 +2,14 @@
     <div class="pt-3 bg-color3"><p class="py-2 mb-0 text-center fw-bold">ESTA PÁGINA ES UN PROYECTO ACADÉMICO</p></div>
     <section class="bg-color2">
         <div class="container">
-            <form class="row py-4">
+            <form class="row py-4" action="./sub.php" method="post">
                 <div class="col-12 col-md-6">
                     <h5>Suscríbete a Gift uwu Store</h5>
                     <p>Recibe las actualizaciones y ofertas antes que todos, y obtén un cupón exclusivo.</p>
                 </div>
                 <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
-                    <form action="./sub.php">
-                        <input id="subscribe" name="email" type="email" class="form-control w-75" placeholder="Email address">
-                        <button class="btn btn-light mx-2" type="submit" name="submit">Subscribe</button>
-                    </form>
+                    <input id="subscribe" name="email" type="email" class="form-control w-75" placeholder="Email address">
+                    <button class="btn btn-light mx-2" type="submit" name="submit">Subscribe</button>
                 </div>
             </form>
         </div>

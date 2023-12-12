@@ -100,7 +100,6 @@
                                       Precio final: $' .$endprice. ' <br>
                                      '.$stock.'
                                      </p>';
-                                 echo 'c'; 
                                  echo '<div class="card-footer bg-color2">';
                                     echo '<div class="row row-cols-2">';
                                         echo'<div>';
@@ -113,6 +112,7 @@
                                  echo '</div>';   
                              echo '</div>';
                         echo '</div>';   
+                    echo '</div>';  
                 }
             }
             $conn->close();     

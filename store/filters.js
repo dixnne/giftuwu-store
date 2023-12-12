@@ -28,7 +28,7 @@ function reload(item){
     if (item['stock'] == 0) {
         stock = "Producto agotado";
     } else {
-        stock = "Disponibles: ".item['stock'];
+        stock = "Disponibles: " + item['stock'];
     }
     endprice=item['price'] - (item['price'] * (item['discount']/100));
 
@@ -39,7 +39,7 @@ function reload(item){
     html=`
         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
             <div id="id_'${item['id']}'" class="card bg-color img-container">
-                <img src="'${item['image']}'" class="card-img-top img-effect" alt="..."">
+                <img src="${item['image']}" class="card-img-top img-effect" alt="..."">
                 <div class="card-body">
                     <h5 class="card-title">'${item['name']}'</h5>
                     <p class="card-text">                            
@@ -49,14 +49,13 @@ function reload(item){
                     '${stock}'
                     </p>
                 </div>
-                c
                 <div class="card-footer bg-color2">
                     <div class="row row-cols-2">
                         <div>
                             <small class="text-body-secondary">codigo:'${item['code']}'</small>
                         </div>
                         <div>
-                            <form action="/giftuwu-store/store/products.php" method="post"><button type="submit" name="submit" value="${item['id']}" class="btn btn-dark">Añadir al Carrito</button></form>
+                            <form action="./products.php" method="post"><button type="submit" name="submit" value="${item['id']}" class="btn btn-dark">Añadir al Carrito</button></form>
                         </div>
                     </div>
                 </div>    

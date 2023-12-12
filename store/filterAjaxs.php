@@ -18,77 +18,76 @@
     $servername = "mysql_db_php_2"; //docker-compose.yml database name
     $port = 3306;  
     $conn = new mysqli($servername, $username, $password, '', $port);
-    if ($conexion->connect_errno){
+    if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
-   }else{
-       
-        $query = "SELECT * FROM item";
-        $result = $conn->query($query);
-        if ($result -> num_rows){
-            
-           $i=0;
-           while( $fila = $result -> fetch_assoc()){ 
-               $row[$i]["id"] = $fila["id"];
-               $row[$i]["name"] = $fila["name"];
-               $row[$i]["category"] = $fila["category"];
-               $row[$i]["price"] = $fila["price"];
-               $row[$i]["stock"] = $fila["stock"];
-               $row[$i]["discount"] = $fila["discount"];
-               $row[$i]["code"] = $fila["code"];
-               $row[$i]["details"] = $fila["details"];
-               $row[$i]["image"] = $fila["image"];
-               $i++;
-           }
+    }
 
-           switch($filter){
-               case 0:
-                   $row=mayor($row);
-                   break;
-               case 1:
-                   $row=menor($row);
-                   break;
-               case 2:
-                   $row=price1($row);
-                   break;
-               case 3:    
-                   $row=price2($row);
-                   break;
-               case 4:    
-                   $row=price3($row);
-                   break;
-               case 5:    
-                   $row=price4($row);
-                   break;
-               case 6:    
-                   $row=price5($row);
-                   break;
-               case 7:    
-                   $row=price6($row);
-                   break;
-               case 8:    
-                   $row=price7($row);
-                   break;
-               case 9:    
-                   $row=price8($row);
-                   break;
-               case 10:    
-                   $row=price9($row);
-                   break;
-               case 11:    
-                   $row=price10($row);
-                   break;
-               case 12:    
-                   $row=price11($row);
-                   break; 
-               case 13:    
-                   $row=price12($row);
-                   break;                 
-               default:
-                   break;    
-           }
-        }
-        $conn->close();
-   } 
+    $conn->select_db($dbname);
+   $query = "SELECT * FROM item";
+   $result = $conn->query($query);
+   if ($result -> num_rows > 0){
+       
+      $i=0;
+      while( $row = $result -> fetch_assoc()){ 
+          $fila[$i]["id"] = $row["id"];
+          $fila[$i]["name"] = $row["name"];
+          $fila[$i]["category"] = $row["category"];
+          $fila[$i]["price"] = $row["price"];
+          $fila[$i]["stock"] = $row["stock"];
+          $fila[$i]["discount"] = $row["discount"];
+          $fila[$i]["code"] = $row["code"];
+          $fila[$i]["details"] = $row["details"];
+          $fila[$i]["image"] = $row["image"];
+          $i++;
+      }
+      switch($filter){
+        case 0:
+             $fila=mayor($fila);
+            break;
+        case 1:
+         $fila=menor($fila);
+            break;
+        case 2:
+         $fila=price1($fila);
+            break;
+        case 3:    
+         $fila=price2($fila);
+            break;
+        case 4:    
+         $fila=price3($fila);
+            break;
+        case 5:    
+         $fila=price4($fila);
+            break;
+        case 6:    
+         $fila=price5($fila);
+            break;
+        case 7:    
+         $fila=price6($fila);
+            break;
+        case 8:    
+         $fila=price7($fila);
+            break;
+        case 9:    
+         $fila=price8($fila);
+            break;
+        case 10:    
+         $fila=price9($fila);
+            break;
+        case 11:    
+         $fila=price10($fila);
+            break;
+        case 12:    
+         $fila=price11($fila);
+            break; 
+        case 13:    
+         $fila=price12($fila);
+            break;                 
+        default:
+            break;    
+    }
+    echo json_encode($fila);
+   }
    //Menor a Mayor 
    function menor ($row){ 
            usort($row, function($a, $b) {

@@ -124,17 +124,16 @@ if (!isset($_SESSION["username"]) || $_SERVER["REQUEST_METHOD"] != "POST" || !is
                             $query = "SELECT * FROM item WHERE id='$itemid'";
                             $itemres = $conn->query($query);
                             if ($itemres->num_rows > 0) {
-                                $_SESSION["cart"] = array();
-                                $i = 0;
+                                $_SESSION["cart"] = [];
                                 while ($item = $itemres->fetch_assoc()) {
-                                    $_SESSION["cart"][$i] = $item["name"];
-                                    $i++;
+                                    $_SESSION["cart"][] = $item["name"];
                                     $body.= '<li>'.$item["name"].'</li>';
                                     $items++;
                                 }
                             }
                         }
                     }
+                    var_dump($_SESSION["cart"]);
                     $conn->close();
 
                     $body.= '</ul>

@@ -26,6 +26,13 @@
     <body id="bootstrap-override" class="bg-color">
         <?php
             if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])){
+                if (!isset($_SESSION["username"])) {
+                    echo '<script>
+                    swal("Identifícate", "Para acceder tienes que iniciar sesión.", "error").then(function() {
+                        window.location = "../session/login.php";
+                    });
+                    </script>';
+                }
                 if (addCartItem($_SESSION["username"], test_input($_POST["submit"]), 1)) {
                     echo '<script>
                     swal("Artículo añadido!", "Gracias por tu preferencia...", "success");

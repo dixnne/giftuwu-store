@@ -38,15 +38,15 @@ function reload(item){
     //dentro de estas comillas todo es string
     html=`
         <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div id="id_'${item['id']}'" class="card bg-color img-container">
+            <div id="id_${item['id']}" class="card bg-color img-container">
                 <img src="${item['image']}" class="card-img-top img-effect" alt="..."">
                 <div class="card-body">
-                    <h5 class="card-title">'${item['name']}'</h5>
+                    <h5 class="card-title">${item['name']}</h5>
                     <p class="card-text">                            
-                    '${item['details']}' <br>                            
-                    Precio: $'${price}' |  Descuento: '${item['discount']}'% <br>
-                    Precio final: $'${endprice}' <br>
-                    '${stock}'
+                    ${item['details']} <br>                            
+                    Precio: $${price} |  Descuento: ${item['discount']}% <br>
+                    Precio final: $${endprice} <br>
+                    ${stock}
                     </p>
                 </div>
                 <div class="card-footer bg-color2">

@@ -33,13 +33,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $itemres = $conn->query($query);
                 if ($itemres->num_rows > 0) {
                     while ($item = $itemres->fetch_assoc()) {
-                        if ($itemid == $checkedItems[$i]) {
-                            $itemQuantity = test_input($quantity[$q]);
+                        if (isset($checkedItems[$i])) {
+                            if ($itemid == $checkedItems[$i]) {
+                                $itemQuantity = test_input($quantity[$q]);
                             if ($row["quantity"] != $itemQuantity) {
                                 deleteCartItem($_SESSION["username"], $itemid);
                                 addCartItem($_SESSION["username"], $itemid, $itemQuantity);
                             }
                             $i++;
+                            }else {
+                                deleteCartItem($_SESSION["username"], $itemid);
+                            }
                         } else {
                             deleteCartItem($_SESSION["username"], $itemid);
                         }

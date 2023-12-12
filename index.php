@@ -133,50 +133,24 @@
         <section >
         <div class="py-2 bg-color3 text-white text-center font-paytone shadow h4">Ofertas del dia </div>
 
-        <section style="justify-content: space-between; display: flex; padding: 20px;">
-        <div class="container justify-content: center;" >
-            <div class="container">
-            <div class="card" style="width: 18rem;" >
-                <div class="card-body">
-                    <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Descuento del 15%</font></font></h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Unico dia</font></font></h6>
+        <section>
+        <div class="container py-4">
+            <div class="row">
+                <div class="col-12 col-md-4 d-flex flex-column align-items-sm-end justify-content-sm-center">
+                    <span class="h2">Descuento Navideño</span>
+                    <span class="h4">Válido para tu próxima compra.</span>
+                </div>
+                <div class="col-12 col-md-4">
+                    <img src="./images/Cupon_pagina_n.png" class="img-fluid img-thumbnail" alt="...">
+                </div>
+                <div class="col-12 col-md-4">
+                    <p>Llego la navidad, disfruta de 40% para tu regalo de navidad. Reclama este cupón y utilízalo al finalizar tu compra.</p>
+                    <div class="m-2 p-3 rounded bg-dark">
+                        <p class="lead fw-bold text-white text-center">Código: NavidadUwu25</p>
+                    </div>
+                </div>
 
-        <img src="./images/Cupon_pagina.png" class="card-img-top" alt="...">
-
-        <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Hoy es el día perfecto para consentirte o sorprender a alguien especial. Reclama este cupon y utilizalo al finalizar tu compra.</font></font></p>
-        <h5 href="#" role="button" class="btn btn-dark btn-lg m-3"> DESCUENTOS15 </h5>
             </div>
-        </div>
-        </div>
-        <br>
-    </div>
-<!-- -------------------------------- -->
-            <div class="container">
-            <div class="card" style="width: 18rem;" >
-                <div class="card-body">
-                    <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Descuento Navideño</font></font></h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Valido para tu proxima compra</font></font></h6>
-
-        <img src="./images/Cupon_pagina_n.png" class="card-img-top" alt="...">
-
-        <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Llego la navidad, disfruta de 40% para tu regalo de navidad. Reclama este cupon y utilizalo al finalizar tu compra.
-        <a href="#" role="button" class="btn btn-dark btn-lg m-3">NavidadUwu25</a>
-            </div>
-        </div>
-        </div>
-
-        <div class="container">
-            <div class="card" style="width: 18rem;" >
-                <div class="card-body">
-                    <h5 class="card-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Descuento para nuestro nuevos usuarios</font></font></h5>
-
-
-        <img src="./images/Cupon_nuevos.png" class="card-img-top" alt="...">
-
-        <p class="card-text"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> ¿No sabes si registrarte? Aprovecha esta oportunidad.  Te damos un descuento del 35% para tu primer compra </font></font></p>
-        <a href="#" role="text" class="btn btn-dark btn-lg m-3">NewUser2023</a>
-            </div>
-        </div>
         </div>
 </section>
  <section>

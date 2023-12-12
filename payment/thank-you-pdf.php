@@ -49,7 +49,6 @@ if (!isset($_SESSION["username"]) || $_SERVER["REQUEST_METHOD"] != "POST" || !is
             AddText($pdf,utf8_decode($item), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
             $coordinatey +=5;
         }
-        $_SESSION["cart"] = "";
 
         $coordinatey += 7;
         AddText($pdf,utf8_decode("Descuento en cupón: $".test_input($_POST["coupondis"])), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);

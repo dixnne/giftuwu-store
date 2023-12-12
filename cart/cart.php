@@ -57,16 +57,22 @@
                                     $itemres = $conn->query($query);
                                     if ($itemres->num_rows > 0) {
                                         while ($item = $itemres->fetch_assoc()) {
-                                            $pricefinal= ($item['price'] - ($item['price'] * ($item['discount']/100)))*$row["quantity"];
-                                            $tot_neto += $item['price']*$row["quantity"];
-                                            $descuento +=$item['price'] * ($item['discount']/100);
-                                            $total_est += $pricefinal;
+                                            if($item["stock"]>0){
+                                                $pricefinal= ($item['price'] - ($item['price'] * ($item['discount']/100)))*$row["quantity"];
+                                                $tot_neto += $item['price']*$row["quantity"];
+                                                $descuento +=$item['price'] * ($item['discount']/100);
+                                                $total_est += $pricefinal;
+                                            }
 
                                             echo '<div id="id_'.$item['id'].'" class="card mb-3" style="max-width: 700px;">';
                                                 echo '<div class="row g-0">';
                                                     echo '<div class=" col-md-2 d-flex align-items-center justify-content-center">';
                                                         echo '<div class="form-group d-flex align-items-center justify-content-center">';
+                                                        if ($item["stock"] == 0) {
+                                                            echo '<label><input type="checkbox" class="form-check-input" name="items[]" value="'.$item['id'].'" disabled></label> ';
+                                                        } else {
                                                             echo '<label><input type="checkbox" class="form-check-input" name="items[]" value="'.$item['id'].'" checked></label> ';
+                                                        }
                                                         echo '</div>';
                                                     echo '</div>';
                                                     echo '<div class="col-md-3">';
@@ -85,12 +91,20 @@
                                                             }else{
                                                                 echo '<p> Precio Unitario: $'. $item['price'].'</p>';
                                                             }
-                                                            echo '<p class="card-text lead bg-color1 p-2 rounded"> Precio final: $'.$pricefinal.'</p>';
+                                                            if ($item["stock"] == 0) {
+                                                                echo '<p class="card-text lead bg-color1 p-2 rounded">No hay disponibles.</p>';
+                                                            } else {
+                                                                echo '<p class="card-text lead bg-color1 p-2 rounded"> Precio final: $'.$pricefinal.'</p>';
+                                                            }
                                                         echo '</div>';
                                                     echo '</div>';
                                                     echo '<div class="bg-color2 col-md-2 d-flex align-items-center justify-content-center">';
                                                         echo '<div class="form-group d-flex align-items-center justify-content-center">';
-                                                            echo '<label><input class="form-control" style="max-width: 50px;" type="number" min="1" max="'. $item['stock'] .'" name="quantity[]" value="'.$row["quantity"].'" ></label> ';
+                                                            if ($item["stock"] == 0) {
+                                                                echo '<label><input class="form-control" style="max-width: 50px;" type="number" min="0" max="'. $item['stock'] .'" name="quantity[]" value="0" ></label> ';
+                                                            } else {
+                                                                echo '<label><input class="form-control" style="max-width: 50px;" type="number" min="0" max="'. $item['stock'] .'" name="quantity[]" value="'.$row["quantity"].'" ></label> ';
+                                                            }
                                                         echo '</div>';
                                                     echo '</div>';
                                                 echo '</div>';

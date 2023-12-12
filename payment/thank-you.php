@@ -130,7 +130,11 @@ if (!isset($_SESSION["username"]) || $_SERVER["REQUEST_METHOD"] != "POST" || !is
                             $query = "SELECT * FROM item WHERE id='$itemid'";
                             $itemres = $conn->query($query);
                             if ($itemres->num_rows > 0) {
+                                $_SESSION["cart"] = array();
+                                $i = 0;
                                 while ($item = $itemres->fetch_assoc()) {
+                                    $_SESSION["cart"][$i] = $item["name"];
+                                    $i++;
                                     $body.= '<li>'.$item["name"].'</li>';
                                     $items++;
                                 }

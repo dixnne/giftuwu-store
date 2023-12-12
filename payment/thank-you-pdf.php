@@ -45,25 +45,12 @@ if (!isset($_SESSION["username"]) || $_SERVER["REQUEST_METHOD"] != "POST" || !is
         $conn->select_db($dbname); 
 
         $coordinatey = 60;
-        $user = $_SESSION["username"];
-        $tot_neto = $total_est = $descuento = 0;
-        $query = "SELECT * FROM cart WHERE user='$user'";
-        $result = $conn->query($query);
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $itemid = $row["item"];
-                $query = "SELECT * FROM item WHERE id='$itemid'";
-                $itemres = $conn->query($query);
-                if ($itemres->num_rows > 0) {
-                    while ($item = $itemres->fetch_assoc()) {
-                        AddText($pdf,utf8_decode($item["name"]), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
-                        $coordinatey +=5;
-                    }
-                }
-            }
+        foreach ($_SESSION["cart"] as $item) {
+            AddText($pdf,utf8_decode($item), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
+            $coordinatey +=5;
         }
+        $_SESSION["cart"] = "";
 
-        $conn->close();
         $coordinatey += 7;
         AddText($pdf,utf8_decode("Descuento en cupón: $".test_input($_POST["coupondis"])), 10, $coordinatey, 'L', 'Helvetica','',10,0,0,0);
         $coordinatey += 5;

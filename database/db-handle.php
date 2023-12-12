@@ -185,7 +185,7 @@ function insertItem($name, $code, $category, $price, $stock, $discount, $details
 
     $query = "INSERT INTO item (name, code, category, price, stock, discount, details, image) VALUES ('$name', '$code', '$category', '$price', '$stock', '$discount', '$details', '$image')";
     if ($conn->query($query) === FALSE) {
-        return false;
+        echo "Error inserting data: " . $conn->error . "<br>";
     }
     $conn->close();
     return true;
@@ -685,7 +685,7 @@ function addCartItem($user, $item, $quantity){
     if ($result->num_rows > 0){
         while ($row = $result->fetch_assoc()) {
             $quantity = $quantity + $row["quantity"];
-            $query = "UPDATE cart SET quantity='$quantity' AND addedDate='$addedDate' WHERE user='$user' AND item='$item'";
+            $query = "UPDATE cart SET quantity='$quantity' WHERE user='$user' AND item='$item'";
             if ($conn->query($query) === FALSE) {
                 return false;
             }
@@ -765,7 +765,7 @@ function getCartCount($user){
     return mysqli_num_rows($result);
 }
 
-function generatePurchase($user){
+function generatePurchase($user, $items, $total){
     $username = "root"; 
     $password = "ch1d0N83"; 
     $dbname = "giftuwustore";
@@ -781,28 +781,42 @@ function generatePurchase($user){
 
     date_default_timezone_set('America/Los_Angeles');
     $purchaseDate = date('Y-m-d', time());
-    $items = 0;
-    $total = 0;
+
     $query = "SELECT * FROM cart WHERE user='$user'";
     $result = $conn->query($query);
-    if ($result->num_rows > 0){
+    if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $items = $items + $row["quantity"];
-            $item = $row["item"];
-            $query = "SELECT * FROM item WHERE id='$item'";
-            $result = $conn->query($query);
-            if ($result->num_rows > 0){
-                while ($itemrow = $result->fetch_assoc()) {
-                    $total = $total + ($itemrow["price"] * $row["quantity"]);
+            $itemid = $row["item"];
+            $query = "SELECT * FROM item WHERE id='$itemid'";
+            $itemres = $conn->query($query);
+            if ($itemres->num_rows > 0) {
+                while ($item = $itemres->fetch_assoc()) {
+                    $stock = $item["stock"] - $row["quantity"];
+                    $query = "UPDATE item SET stock='$stock' WHERE id='$itemid'";
+                    if ($conn->query($query) === FALSE) {
+                        return false;
+                    }
                 }
             }
         }
     }
+
     $query = "DELETE FROM cart WHERE user='$user'";
     if ($conn->query($query) === FALSE) {
         return false;
     }
     $query = "INSERT INTO purchase (user, purchaseDate, items, total) VALUES ('$user', '$purchaseDate', '$items', '$total')";
+    if ($conn->query($query) === FALSE) {
+        return false;
+    }
+    $query = "SELECT * FROM store WHERE name='Gift uwu Store'";
+    $result = $conn->query($query);
+    if ($result->num_rows > 0){
+        while ($row = $result->fetch_assoc()) {
+            $profits = $row["profits"] + $total;
+        }
+    }
+    $query = "UPDATE store SET profits='$profits' WHERE name='Gift uwu Store'";
     if ($conn->query($query) === FALSE) {
         return false;
     }

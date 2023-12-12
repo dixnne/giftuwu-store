@@ -1,0 +1,49 @@
+<nav class="navbar bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Filtro</a>
+      
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    <form class="d-flex mt-3" action="filterBack.php" method="post">
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Por Precios</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <button class="btn" type="submit" name="filter" value="0">Mayor a Menor</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn" type="submit" name="filter" value="1">Menor a Mayor</button>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Rangos
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><button class="dropdown-item btn" type="submit" name="filter" value="2">50 o menos</button></li>
+                            <li><button class="dropdown-item btn" type="submit" name="filter" value="3">50 a 100</button></li>
+                            <li><button class="dropdown-item btn" type="submit" name="filter" value="4">100 a 200</button></li>
+                            <li><button class="dropdown-item btn" type="submit" name="filter" value="5">200 a 300</button></li>
+                            <li><button class="dropdown-item btn" type="submit" name="filter" value="6">300 a 400</button></li>
+                            <li><button class="dropdown-item btn" type="submit" name="filter" value="7">400 a 500</button></li>
+                            <li><button class="dropdown-item btn" type="submit" name="filter" value="8">500 a 600</button></li>
+                            <li><button class="dropdown-item btn" type="submit" name="filter" value="9">600 a 700</button></li>
+                            <li><button class="dropdown-item btn" type="submit" name="filter" value="10">700 a 800</button></li>
+                            <li><button class="dropdown-item btn" type="submit" name="filter" value="11">800 a 900</button></li>
+                            <li><button class="dropdown-item btn" type="submit" name="filter" value="12">900 a 1000</button></li>
+                            <li>
+                            <hr class="dropdown-divider">
+                            </li>
+                            <li><button class="dropdown-item btn" type="submit" name="filter" value="13">1000 en Adelante</button></li>
+                        </ul>
+                    </li>
+                </ul>  
+            </div>
+        </div>   
+    </form>
+    </div>
+</nav>

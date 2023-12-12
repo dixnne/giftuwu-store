@@ -41,6 +41,7 @@
             }else{
                 include("../header/header.html");
             }
+            include("filterNav.html");
         ?>
         <section id="bodyproducts" class="gradient-background-purple py-5">
             <div class="container">

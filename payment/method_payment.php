@@ -38,13 +38,13 @@
                         <hr class="grow">
                         
                             <label for="nom"><i class="fa-solid fa-user"></i> Nombre completo</label><br><br>
-                            <input type="text" id="nom" name="nombre" placeholder="Escribe tu nombre aqui" class="inputs form-control" required><br><br>
+                            <input type="text" id="nom" name="nombre" placeholder="Escribe tu nombre aqui" class="inputs form-control" ><br><br>
                             <label for="correo"><i class="fa-solid fa-envelope"></i> Correo electronico</label><br><br>
-                            <input type="email" id="correo" name="mail" placeholder="Escribe tu correo aqui" class="inputs form-control" required><br><br>
+                            <input type="email" id="correo" name="mail" placeholder="Escribe tu correo aqui" class="inputs form-control" ><br><br>
                             <label for="domicilio"><i class="fa-solid fa-house-user"></i> Domicilio</label><br><br>
-                            <input type="text" id="domicilio" name="domicilio" placeholder="Escribe tu domicilio aqui" class="inputs form-control" required><br><br>
+                            <input type="text" id="domicilio" name="domicilio" placeholder="Escribe tu domicilio aqui" class="inputs form-control" ><br><br>
                             <label for="ciudad"><i class="fa-solid fa-city"></i> Ciudad</label><br><br>
-                            <input type="text" id="ciudad" name="ciudad" placeholder="Escribe tu ciudad aqui" class="inputs form-control" required><br><br>
+                            <input type="text" id="ciudad" name="ciudad" placeholder="Escribe tu ciudad aqui" class="inputs form-control" ><br><br>
                             <label for=""><i class="fa-solid fa-globe"></i> Pais</label>
                             <select name="pais" id="pais" class="inputs form-select" >
                                 <option value="ar" class="inputs">Argentina</option>
@@ -54,9 +54,9 @@
                                 <option value="mx" class="inputs">Mexico</option>
                             </select><br><br>
                             <label for="cp"><i class="fa-solid fa-inbox"></i> Codigo postal</label><br><br>
-                            <input type="number" id="cp" name="cp" placeholder="Escribe tu codigo postal aquí" class="inputs form-control" required><br><br>
+                            <input type="number" id="cp" name="cp" placeholder="Escribe tu codigo postal aquí" class="inputs form-control" ><br><br>
                             <label for="num"><i class="fa-solid fa-phone"></i> Numero de telefono</label><br><br>
-                            <input type="number" id="num" name="num_tel" placeholder="Escribe tu numero telefonico aquí" class="inputs form-control" required><br><br>
+                            <input type="number" id="num" name="num_tel" placeholder="Escribe tu numero telefonico aquí" class="inputs form-control" ><br><br>
                         </div>
                     <div class=" col-lg">
                         <div class="contenedor-derecho col-lg">
@@ -85,12 +85,12 @@
                             <br>
                             <div id="show-visa" class="pay-card mb-3" style="display:none;">
                                 <label for="card_num"><i class="fa-solid fa-credit-card fa-lg"></i> Numero de tarjeta</label>
-                                <input type="number" id="card_num" name="card_num" placeholder="Escribe tu numero de tarjeta sin espacios aqui" class="inputs form-control" required><br>
+                                <input type="number" id="card_num" name="card_num" placeholder="Escribe tu numero de tarjeta sin espacios aqui" class="inputs form-control" ><br>
                                 <label for="card_exp"><i class="fa-solid fa-calendar fa-lg"></i> Fecha de expiracion</label><br>
-                                <input type="number" id="card_exp" name="card_exp" placeholder="Mes" class="inputs form-control" required><br>
-                                <input type="number" id="card_exp" name="card_exp" placeholder="Año" class="inputs form-control" required><br>
+                                <input type="number" id="card_exp" name="card_exp" placeholder="Mes" class="inputs form-control" ><br>
+                                <input type="number" id="card_exp" name="card_exp" placeholder="Año" class="inputs form-control" ><br>
                                 <label for="card_security"><i class="fa-regular fa-credit-card fa-lg"></i> Codigo de seguridad</label>
-                                <input type="number" id="card_security" name="card_security" placeholder="CVV" class="inputs form-control" required>
+                                <input type="number" id="card_security" name="card_security" placeholder="CVV" class="inputs form-control" >
                             </div>
                             <div id="show-oxxo" class="pay-card mb-3 text-center" style="display:none;">
                             <i class="fa-solid fa-money-check-dollar fa-xl" style="color: #1bb11d;"></i><br>

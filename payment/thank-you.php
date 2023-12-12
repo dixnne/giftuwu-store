@@ -78,14 +78,8 @@ if (!isset($_SESSION["username"]) || $_SERVER["REQUEST_METHOD"] != "POST" || !is
                     .color-card{
                         background-color:#f8f9fa;
                     }
-                    .font-size{
-                        font-size:20px;
-                    }
                     .fst-italic{
-                        font-size:italic;
-                    }
-                    .font-size-peq{
-                        font-size:10px;
+                        :italic;
                     }
                     .text-start{
                         text-align:left;
@@ -154,13 +148,13 @@ if (!isset($_SESSION["username"]) || $_SERVER["REQUEST_METHOD"] != "POST" || !is
                     <hr class="grow"><br>
                     <p><i class="fa-solid fa-money-bill"></i> Total a pagar: $<'.test_input($_POST["total"]).'</p>
                     <hr class="grow">
-                    <div class="sombra espacio color-card font-size">
+                    <div class="sombra espacio color-card ">
                         <p>Haremos entrega en '.test_input($_POST["domicilio"]).'</p>
                         <p>A nombre de: '.test_input($_POST["name"]).'</p>
                         <hr>
                         <p>Devolver siempre es gratis, si el producto que recibiste no te agradó cuentas con <strong>30 dias para realizar la devolución.</strong></p><br>
-                        <p class="text-center">¡gracias por tu preferencia! uwu</p>
-                        <p class="fst-italic font-size-peq text-start">Atte: El equipo de <strong>GIFT UWU STORE</strong></p>
+                        <p class="text-center">¡GRACIAS POR TU PREFERENNCIA! uwu</p>
+                        <p class="fst-italic  text-start">Atte: El equipo de <strong>GIFT UWU STORE</strong></p>
                     </div>
                 </div>
             </div>
